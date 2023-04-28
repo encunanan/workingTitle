@@ -1,0 +1,294 @@
+/* --- IMPORTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech&family=Share+Tech+Mono&display=swap');
+
+
+
+/* --- VARIABLES --- */
+:root {
+  --editor-bg: #FFFFFF;
+  --editor-border: #5897EB;
+}
+
+
+
+/* --- RESET STYLES --- */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-image: url(../../assets/bkgd.png);
+  background-position: 0px 0px;
+  background-size: 3px 3px;
+  background-repeat: repeat;
+}
+
+
+
+/* --- EDITOR --- */
+.editor {
+  position: relative;
+  height: 100%;
+  left: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 150;
+}
+
+.editor__wrapper {
+  width: 50%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  background: var(--editor-bg);
+  padding: 2em;
+  border-radius: 3px;
+  border: 1px solid #434140;
+}
+
+.editor__body {
+  flex: 1;
+}
+
+textarea {
+  width: 100%;
+  height: 28%;
+  background: #D4D4D3;
+  color: #434140;
+  padding: 10px 20px;
+  border: 0;
+  outline: 0;
+  font-size: 15px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  background: #5897EB;
+  height: 30px;
+  color: #434140;
+  font-family: 'Share Tech', san-serif;
+  padding: 10px;
+}
+
+.editor__footer {
+  display: flex;
+  margin-top: 1em;
+}
+
+.editor__footer--left {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor__footer--right {
+  flex: 1;
+  margin-left: 1em;
+  font-size: 1em;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 1em;
+}
+
+
+
+/* --- EDITOR BUTTONS --- */
+.editor__btn {
+  font-size: 1em;
+  padding: .5em;
+  margin-top: 1em;
+  color: #000;
+  border: 2px solid;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  text-decoration: none;
+  font-family: 'Share Tech Mono', monospace;
+  position: relative;
+  cursor: pointer;
+  transition: all 200ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.editor__btn:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 0px;
+  left: 0px;
+  position: relative;
+}
+
+.editor__btn:hover {
+  background-color: #D4D4D3;
+}
+
+@media (min-width: 768px) {
+  .editor__btn {
+    padding: 0.25em 0.75em;
+  }
+}
+
+
+
+/* --- CODE PASTE AREA --- */
+.editor__code {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid var(--editor-border);
+}
+
+
+
+/* --- CONSOLE POPUP BOX --- */
+.console_overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1500;
+  background: rgba(0, 0, 0, 0.7);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.console_overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.editor__console {
+  margin: 70px auto;
+  padding: 20px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  width: 50%;
+  height: 90%;
+  position: relative;
+  bottom: 5%;
+  z-index: 1501;
+}
+
+.editor__console h3 {
+  margin-top: 0;
+  color: #434140;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  background: #D4D4D3;
+  border: 0;
+  outline: 0;
+}
+
+.editor__console .console_close {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #434140;
+}
+
+.editor__console .console_close:hover {
+  color: #D4D4D3;
+}
+
+.editor__console .content {
+  max-height: 30%;
+  overflow: auto;
+  z-index: 1501;
+}
+
+.editor__console #send {
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  transition: all 200ms;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  border = none;
+}
+
+.editor__console #send:hover {
+  color: #D4D4D3;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 700px){
+.header_buttons{
+    width: 70%;
+  }
+  .editor__console{
+    width: 70%;
+  }
+}
+
+
+
+/* --- EDITOR CONSOLE LOGS --- */
+.editor__console-logs {
+    padding: 5%;
+    list-style: none;
+    z-index: 1550;
+}
+
+.editor__console-logs li pre {
+    font-size: .9em;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.ace_gutter {
+    border-left: 5px solid var(--editor-border);
+}
+
+.log--default {
+    color: #000;
+}
+
+.log--string {
+    color: #48BF0A;
+}
+
+.log--number {
+    color: #48BF0A;
+}
+
+.log--boolean {
+    color: blue;
+}
+
+.log--undefined {
+    color: grey;
+}
+
+.log--error {
+    color: red;
+}
+
+.log--object {
+    color: darkcyan;
+}
+
+.log--array {
+    color: darkblue;
+}
+
+.log--function {
+    color: yellow;
+}

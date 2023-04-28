@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="lib/css/editor-styles.css">
+	<link rel="stylesheet" href="lib/css/gen-styles.css">
+	<script type="text/javascript" src="lib/js/function.js"></script>
+
+	<title>workingTitle</title>
+</head>
+
+<body>
+	<!-- HEADER -->
+	<header>
+		<h1> workingTitle</h1>            
+		<div class="header_buttons">
+			<a class="home-button" href="#home-popup">HOME</a>
+			<a class="about-button" href="#about-popup">ABOUT</a>
+			<a class="gallery-button" href="#gallery-popup">GALLERY</a>
+		</div>
+	</header>
+
+	<!-- CODE EDITOR -->
+	<div class="editor">
+		<div class="editor__wrapper">
+			<div class="editor__body">
+				<label> HTML</label>
+				<textarea id="html-code" onkeyup="run()"></textarea>
+
+				<label> CSS</label>
+				<textarea id="css-code" onkeyup="run()"></textarea>
+
+				<label> JS</label>
+				<textarea id="js-code" onkeyup="run()"></textarea>
+			</div>
+			<div class="editor__footer">
+				<div class="editor__footer--left">
+					<a href="#console-popup"><button class="editor__btn editor__run">Run ></button></a>
+					<a<button class="editor__btn editor__reset" onclick="reset()">Reset ></button></a>
+				</div>
+ 				<div class="editor__footer--right">
+					<p> Open the <b>START</b> folder to begin. Copy and paste code into the area above to start building your poster. Read the code comments along the way to help you learn about the functions of code you are using. When you're ready, click <b>RUN</b> to see what you made! You can <b>SAVE</b> to the gallery or <b>SEND</b> your creation to yourself.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- CONSOLE POPUP -->
+	<div id="console-popup" class="console_overlay">
+		<div class="editor__console">
+			<iframe id="output"></iframe>
+
+			<ul class="editor__console-logs"></ul>
+			<a class="console_close" href="#">&times;</a>
+			<div id="send">
+			<button><img src="assets/send_icon.png" alt="send icon" width="30" height="25"></button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Required Ace Libraries -->
+	<script src="lib/js/ace-editor/src-min/ace.js"></script>
+	<script type="text/javascript" src="lib/js/ace-editor/src-min/mode-html.js"></script>
+	<script src="lib/js/ace-editor/src-min/ext-language_tools.js"></script>
+
+	<!-- Custom Scripts -->
+	<script src="lib/js/editor.js"></script>
+	<script src="lib/js/editor-console.js"></script>
+
+	<!-- FOLDER POPUP -->
+	<div id="folder-popup" class="folder_overlay">
+		<div class="inside-folder">
+			<ul class="folder-content"></ul>
+			<p id="display_code"></p>
+			<a class="folder_close" href="#">&times;</a>
+		</div>
+	</div>
+
+	<!-- ABOUT POPUP BOX -->
+	<div id="about-popup" class="overlay">
+		<div class="popup">
+			<h3> ABOUT THE PROJECT</h3>
+			<p> I want creatives without a coding background to have a toolkit that can be used to create generative art because it allows creatives to experiment with a variety of visual ideas quickly.</p>
+			<br>
+			<h3> HOW IT WORKS</h3>
+			<p> Users can use this tool to "code their creativity" using HTML, CSS, and JavaScript. The goal is for them to gain experience interpreting code while still being creative. </p>
+			<a class="close" href="#">&times;</a>
+		</div>
+	</div>
+
+<!-- FILE NAVIGATION -->
+	<div class="sidenav">
+		<p> Drag folders around to rearrange. </p>
+		<!-- LINK TO START PAGE -->
+		<div id="start">
+			<div id="file-header"></div>
+			<a href="#folder-popup"<button onclick="swapToStart()"><img src="assets/start_icon.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">CLICK TO START</div>
+		</div>
+
+		<!-- LINK TO TEXT PAGE -->
+		<div id="text">
+			<a href="#folder-popup"<button onclick="swapToText()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">TEXT</div>
+		</div>
+
+		<!-- LINK TO IMAGES PAGE -->
+		<div id="images">
+			<a href="#folder-popup"<button onclick="swapToImages()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">IMAGES</div>
+		</div>
+
+		<!-- LINK TO COLORS PAGE -->
+		<div id="colors">
+			<a href="#folder-popup"<button onclick="swapToColors()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">COLORS</div>
+		</div>
+
+		<!-- LINK TO FILTERS PAGE -->
+		<div id="filters">
+			<a href="#folder-popup"<button onclick="swapToFilters()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">FILTERS</div>
+		</div>
+
+		<!-- LINK TO OTHER PAGE -->
+		<div id="other">
+			<a href="#folder-popup"<button onclick="swapToOther()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">OTHER</div>
+		</div>
+	</div>
+	<script>
+		function run(){
+			let htmlCode = document.getElementById("html-code").value;
+			let cssCode = document.getElementById("css-code").value;
+			let jsCode = document.getElementById("js-code").value;
+			let output = document.getElementById("output");
+
+			output.contentDocument.body.innerHTML = htmlCode +"<style>"+cssCode+"</style>";
+			output.contentWindow.eval(jsCode);
+		}
+	</script>
+	<script src="lib/js/function.js"></script>
+</body>
+
+</html>
