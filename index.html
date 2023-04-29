@@ -17,9 +17,9 @@
 	<header>
 		<h1> workingTitle</h1>            
 		<div class="header_buttons">
-			<a class="home-button" href="#home-popup">HOME</a>
+			<a class="home-button" href="index.html">HOME</a>
 			<a class="about-button" href="#about-popup">ABOUT</a>
-			<a class="gallery-button" href="#gallery-popup">GALLERY</a>
+			<a class="gallery-button" href="gallery.html">GALLERY</a>
 		</div>
 	</header>
 
@@ -42,7 +42,7 @@
 					<a<button class="editor__btn editor__reset" onclick="reset()">Reset ></button></a>
 				</div>
  				<div class="editor__footer--right">
-					<p> Open the <b>START</b> folder to begin. Copy and paste code into the area above to start building your poster. Read the code comments along the way to help you learn about the functions of code you are using. When you're ready, click <b>RUN</b> to see what you made! You can <b>SAVE</b> to the gallery or <b>SEND</b> your creation to yourself.</p>
+					<p> Open the <b>START</b> folder to begin. Copy and paste code into the area above to start building your poster. Read the code comments along the way to help you learn about the functions of code you are using. When you're ready, click <b>RUN</b> to see what you made! </p>
 				</div>
 			</div>
 		</div>
@@ -55,9 +55,7 @@
 
 			<ul class="editor__console-logs"></ul>
 			<a class="console_close" href="#">&times;</a>
-			<div id="send">
-			<button><img src="assets/send_icon.png" alt="send icon" width="30" height="25"></button>
-			</div>
+			</form>
 		</div>
 	</div>
 
@@ -93,7 +91,7 @@
 
 <!-- FILE NAVIGATION -->
 	<div class="sidenav">
-		<p> Drag folders around to rearrange. </p>
+		<p> Click on the folders to open up dialog box. <br> Use the folder labels to drag each folder around to rearrange your workspace. </p>
 		<!-- LINK TO START PAGE -->
 		<div id="start">
 			<div id="file-header"></div>
@@ -107,10 +105,10 @@
 			<div id="file_text">HEADER TEXT</div>
 		</div>
 
-		<!-- LINK TO IMAGES PAGE -->
-		<div id="images">
-			<a href="#folder-popup"<button onclick="swapToImages()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">IMAGES</div>
+		<!-- LINK TO URL IMAGES PAGE -->
+		<div id="url-images">
+			<a href="#folder-popup"<button onclick="swapToURLImages()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">IMAGES W/ URL</div>
 		</div>
 
 		<!-- LINK TO BKGD COLORS PAGE -->
@@ -123,6 +121,24 @@
 		<div id="bkgd-images">
 			<a href="#folder-popup"<button onclick="swapToBKGDImages()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
 			<div id="file_text">BKGD IMAGES</div>
+		</div>
+
+		<!-- LINK TO PARAGRAPH TEXT PAGE -->
+		<div id="para-text">
+			<a href="#folder-popup"<button onclick="swapToParaText()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">PARAGRAPH TEXT</div>
+		</div>
+
+		<!-- LINK TO BOLD TEXT PAGE -->
+		<div id="bold-text">
+			<a href="#folder-popup"<button onclick="swapToBoldText()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">BOLD TEXT</div>
+		</div>
+
+		<!-- LINK TO ITALIC TEXT PAGE -->
+		<div id="italic-text">
+			<a href="#folder-popup"<button onclick="swapToItalicText()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
+			<div id="file_text">ITALIC TEXT</div>
 		</div>
 	</div>
 	<script>
