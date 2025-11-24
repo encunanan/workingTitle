@@ -2,59 +2,261 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>workingTitle Gallery</title>
+  <link rel="shortcut icon" type="image/png" href="assets/favicon.png">
 
-	<link rel="stylesheet" href="lib/css/editor-styles.css">
-	<link rel="stylesheet" href="lib/css/gen-styles.css">
-	<script type="text/javascript" src="lib/js/function.js"></script>
-
-	<title>workingTitle</title>
+  <!-- Font + CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lib/css/style.css">
 </head>
 
-<body>
-	<!-- HEADER -->
-	<header>
-		<h1> workingTitle</h1>            
-		<div class="header_buttons">
-			<a class="home-button" href="index.html">HOME</a>
-			<a class="about-button" href="#about-popup">ABOUT</a>
-			<a class="gallery-button" href="gallery.html">GALLERY</a>
-		</div>
-	</header>
+<body class="gallery-page">
+  <header class="gallery-header">
+    <h1>Community Gallery</h1>
+  </header>
 
-	<!-- ABOUT POPUP BOX -->
-	<div id="about-popup" class="overlay">
-		<div class="popup">
-			<h3> ABOUT THE PROJECT</h3>
-			<p> I want creatives without a coding background to have a toolkit that can be used to create generative art because it allows creatives to experiment with a variety of visual ideas quickly.</p>
-			<br>
-			<h3> HOW IT WORKS</h3>
-			<p> Users can use this tool to "code their creativity" using HTML, CSS, and JavaScript. The goal is for them to gain experience interpreting code while still being creative. </p>
-			<a class="close" href="#">&times;</a>
-		</div>
-	</div>
+  <section class="gallery-wall">
+    <figure class="pin-card sticky tape-ripped note-callout" style="--tilt:-3deg; --shift-x:-8px; --shift-y:-4px;">
+      <div class="note-body">
+        <h3 style="text-align: center; padding-top: 15%;">Show off your experiments, sketches, and finished pieces on this page.</h3>
+      </div>
+    </figure>
 
-	<div class="gallery">
-		<div id="poster-1">
-			<img id="move" src="assets/gallery/Artboard 1.png" width="450" height="600">
-		</div>
-		<div id="poster-2">
-			<img src="assets/gallery/Artboard 2.png" width="450" height="600">
-		</div>
-		<div id="poster-4">
-			<img src="assets/gallery/Artboard 4.png" width="450" height="600">
-		</div>
-		<div id="poster-3">
-			<img src="assets/gallery/Artboard 3.png" width="450" height="600">
-		</div>
-		<div id="poster-5">
-			<img src="assets/gallery/Artboard 5.png" width="450" height="600">
-		</div>
-	</div>
+    <figure class="pin-card polaroid tape-jagged tape-single-left" style="--tilt:4deg; --shift-x:6px; --shift-y:2px;">
+      <div class="pin-media" data-src="assets/_gallery-posters/echo.png" data-alt="Artwork pinned to the corkboard">
+      </div>
+      <figcaption>ECHO</figcaption>
+    </figure>
 
+    <figure class="pin-card polaroid tape-jagged tape-diagonal-tr-bl"
+      style="--tilt:5deg; --shift-x:-2px; --shift-y:6px;">
+      <div class="pin-media" data-src="assets/_gallery-posters/space.png" data-alt="Artwork pinned to the corkboard">
+      </div>
+      <figcaption>CENTER OF THE UNIVERSE</figcaption>
+    </figure>
 
-	<script src="lib/js/function.js"></script>
+    <figure class="pin-card polaroid tape-ripped" style="--tilt:-6deg; --shift-x:10px; --shift-y:-2px;">
+      <div class="pin-media" data-src="assets/_gallery-posters/warp.png" data-alt="Artwork pinned to the corkboard">
+      </div>
+      <figcaption>WARP IN NEON NOISE</figcaption>
+    </figure>
+
+    <figure class="pin-card polaroid tape-ripped tape-single-right"
+      style="--tilt:2deg; --shift-x:-6px; --shift-y:12px;">
+      <div class="pin-media" data-src="assets/_gallery-posters/dream.png" data-alt="Artwork pinned to the corkboard">
+      </div>
+      <figcaption>DREAMS OR NIGHTMARES?</figcaption>
+    </figure>
+
+    <figure class="pin-card polaroid tape-jagged tape-diagonal-tl-br"
+      style="--tilt:-2deg; --shift-x:4px; --shift-y:8px;">
+      <div class="pin-media" data-src="assets/_gallery-posters/design.png" data-alt="Artwork pinned to the corkboard">
+      </div>
+      <figcaption>CREATIVE BRAINWAVE</figcaption>
+    </figure>
+
+    <figure class="pin-card polaroid tape-jagged" style="--tilt:-5deg; --shift-x:-10px; --shift-y:-6px;">
+      <div class="pin-media" data-src="assets/_gallery-posters/kaleidoscope.mp4"
+        data-alt="Artwork pinned to the corkboard"></div>
+      <figcaption>KALEIDOSCOPE</figcaption>
+    </figure>
+
+    <figure class="pin-card sticky tape-ripped note-callout" style="--tilt:3deg; --shift-x:12px; --shift-y:-2px;">
+      <h3 style="text-align: center; padding-top: 10%;">OPEN CALL</h3>
+      <div class="note-body">
+        <p>Want your piece featured? We wanna see it!</p>
+        <p>Send it <a href="mailto:ellinicolecunanan@gmail.com" class="highlight-link">here</a> and I'll get it posted
+          as soon as I can. Don't forget to leave me a title or caption to go with your piece!</p>
+      </div>
+    </figure>
+  </section>
+
+  <section id="about-panel" class="panel hidden">
+    <header class="panel-header">
+      <h2>ABOUT THE PROJECT</h2>
+      <button class="panel-close" data-action="close-about">×</button>
+    </header>
+    <div class="panel-body">
+      <h1>WHAT IS IT</h1>
+      <p>
+        <b>workingTitle</b> is a creative coding playground built for exploration. It was made for artists and
+        designers who are curious about how code can behave like paint, collage, or sound; something that can be
+        played with, shaped, and reimagined.
+      </p>
+      <br>
+      <p>
+        Rather than focusing on precision or perfection, <b>workingTitle</b> encourages discovery. It’s a space for
+        sketching with HTML, CSS, and JavaScript — the building blocks of the web — to see what can happen when
+        creative intuition meets computation.
+      </p>
+      <br>
+      <h1>A LITTLE CONTEXT</h1>
+      <p> This project began as my undergrad senior capstone, a challenge to create something that represented
+        everything I had learned in four years of design school. I wanted my final piece to be an homage to where I
+        started: computer science, my original major and eventual minor.
+      </p>
+      <br>
+      <p>
+        When I first shifted from science to art, I expected a complete change in mindset, and I thought I'd experience
+        a 180 in how I approached problem-solving. To my surprise, the two fields share more than they differ. Both
+        demand structure, logic, and creativity equally. <b>workingTitle</b> grew out of a series of small experiments
+        that aimed to bridge those worlds. Each folder on
+        the desktop opens into a piece of that toolkit and are spaces to explore color, texture, type, and motion
+        through code
+        as
+        the medium. It’s a space where artists can create with logic, and coders can play with art.
+      </p>
+      <br>
+      <p> Thanks for stopping by, I'm excited to see whatcha make!</p>
+      <br>
+      <p>
+        Designed and developed by <b>Elli Cunanan</b>.
+        <br>
+        Check out my portfolio and other works here:
+        <a href="https://your-portfolio-url.com" target="_blank"
+          style="color:#3366cc; text-decoration:underline;">elli-cunanan.com →</a>
+      </p>
+    </div>
+  </section>
+
+  <section id="references-panel" class="panel hidden">
+    <header class="panel-header">
+      <h2>REFERENCES</h2>
+      <button class="panel-close" data-action="close-references">×</button>
+    </header>
+    <div class="panel-body">
+      <p> Below is a list of other helpful resources and artists that helped inspire this site. Feel free to check them
+        out.</p>
+      <br>
+      <h1> HELPFUL RESOURCES</h1>
+      <ul style="margin-left: 20px;">
+        <li>Rob Farmer – <a href="https://robfarmer.xyz" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">robfarmer.xyz →</a></li>
+        <li>Kiel Danger – <a href="https://www.kielm.com" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">kielm.com →</a></li>
+        <li>Space Type Generator – <a href="https://spacetypegenerator.com" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">spacetypegenerator.com →</a></li>
+        <li>p5.js – <a href="https://p5js.org/" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">p5js.org →</a></li>
+        <li>MDN – <a href="https://developer.mozilla.org/" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">developer.mozilla.org →</a></li>
+      </ul>
+      <p style="margin-top: 1em;">
+        If you find other sites that add to the conversation, reach out and let me know. I'd love to check them
+        out too!
+      </p>
+    </div>
+  </section>
+
+  <nav class="taskbar">
+    <div class="taskbar-left">
+      <button class="taskbar-btn" onclick="window.location.href='index.html'">Home</button>
+      <button class="taskbar-btn" data-action="open-about">About</button>
+      <button class="taskbar-btn" onclick="window.location.href='gallery.html'">Gallery</button>
+    </div>
+    <div class="taskbar-right">
+      <button class="taskbar-btn" data-action="open-references">References</button>
+      <div id="tray-clock" class="tray-clock"></div>
+    </div>
+  </nav>
+
+  <script>
+    // Render the right media element for each gallery entry based on file extension
+    document.querySelectorAll('.pin-media[data-src]').forEach((container) => {
+      const src = container.dataset.src;
+      const alt = container.dataset.alt || 'Artwork pinned to the corkboard';
+      if (!src) return;
+
+      const ext = src.split('.').pop()?.toLowerCase();
+      const isVideo = ext === 'webm' || ext === 'mp4';
+      const media = document.createElement(isVideo ? 'video' : 'img');
+
+      if (isVideo) {
+        media.src = src;
+        media.autoplay = true;
+        media.loop = true;
+        media.muted = true;
+        media.playsInline = true;
+        media.preload = 'metadata';
+        media.setAttribute('aria-label', alt);
+      } else {
+        media.src = src;
+        media.alt = alt;
+        media.loading = 'lazy';
+      }
+
+      container.innerHTML = '';
+      container.appendChild(media);
+    });
+
+    // Lightbox for larger view
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox hidden';
+    lightbox.innerHTML = `
+      <div class="lightbox-backdrop"></div>
+      <div class="lightbox-content">
+        <button class="lightbox-close" aria-label="Close preview">×</button>
+        <div class="lightbox-media"></div>
+        <div class="lightbox-caption"></div>
+      </div>
+    `;
+    document.body.appendChild(lightbox);
+
+    const lightboxMedia = lightbox.querySelector('.lightbox-media');
+    const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+    let prevBodyOverflow = '';
+
+    const closeLightbox = () => {
+      lightbox.classList.add('hidden');
+      lightboxMedia.innerHTML = '';
+      document.body.style.overflow = prevBodyOverflow;
+    };
+
+    lightbox.querySelector('.lightbox-backdrop')?.addEventListener('click', closeLightbox);
+    lightbox.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+        closeLightbox();
+      }
+    });
+
+    function openLightbox(src, alt, captionText) {
+      if (!src) return;
+      prevBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      const ext = src.split('.').pop()?.toLowerCase();
+      const isVideo = ext === 'webm' || ext === 'mp4';
+      const media = document.createElement(isVideo ? 'video' : 'img');
+
+      if (isVideo) {
+        media.src = src;
+        media.autoplay = true;
+        media.loop = true;
+        media.muted = true;
+        media.controls = true;
+        media.playsInline = true;
+      } else {
+        media.src = src;
+        media.alt = alt || 'Artwork pinned to the corkboard';
+        media.loading = 'lazy';
+      }
+
+      lightboxMedia.innerHTML = '';
+      lightboxMedia.appendChild(media);
+      lightboxCaption.textContent = captionText || '';
+      lightbox.classList.remove('hidden');
+    }
+
+    document.querySelectorAll('.pin-card .pin-media').forEach((container) => {
+      const captionText = container.closest('figure')?.querySelector('figcaption')?.textContent?.trim();
+      container.addEventListener('click', () => {
+        openLightbox(container.dataset.src, container.dataset.alt, captionText);
+      });
+    });
+  </script>
+  <script src="lib/js/function.js"></script>
 </body>
 
 </html>

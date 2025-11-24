@@ -2,157 +2,1400 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>workingTitle Project</title>
+  <link rel="shortcut icon" type="image/png" href="assets/favicon.png">
 
-	<link rel="stylesheet" href="lib/css/editor-styles.css">
-	<link rel="stylesheet" href="lib/css/gen-styles.css">
-	<script type="text/javascript" src="lib/js/function.js"></script>
-
-	<title>workingTitle</title>
+  <!-- Font + CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lib/css/style.css">
 </head>
 
-<body>
-	<!-- HEADER -->
-	<header>
-		<h1> workingTitle</h1>            
-		<div class="header_buttons">
-			<a class="home-button" href="index.html">HOME</a>
-			<a class="about-button" href="#about-popup">ABOUT</a>
-			<a class="gallery-button" href="gallery.html">GALLERY</a>
-		</div>
-	</header>
+<body class="desktop">
 
-	<!-- CODE EDITOR -->
-	<div class="editor">
-		<div class="editor__wrapper">
-			<div class="editor__body">
-				<label> HTML</label>
-				<textarea id="html-code" onkeyup="run()"></textarea>
+  <div class="site-banner">
+    <h1 class="glitch" data-text="workingTitle">workingTitle</h1>
+  </div>
 
-				<label> CSS</label>
-				<textarea id="css-code" onkeyup="run()"></textarea>
+  <!-- DESKTOP FOLDERS -->
+  <aside class="desktop-folders" id="desktop-folders">
+    <div class="folder-icon" data-file="start">
+      <img src="assets/start.png" alt="">
+      <div class="folder-label">START</div>
+    </div>
+    <div class="folder-icon" data-file="textStyles">
+      <img src="assets/text-style.png" alt="">
+      <div class="folder-label">TEXT STYLES</div>
+    </div>
+    <div class="folder-icon" data-file="images">
+      <img src="assets/add-imgs.png" alt="">
+      <div class="folder-label">ADD IMAGES</div>
+    </div>
+    <div class="folder-icon" data-file="colors">
+      <img src="assets/colors.png" alt="">
+      <div class="folder-label">COLORS</div>
+    </div>
+    <div class="folder-icon" data-file="filters">
+      <img src="assets/img-filters.png" alt="">
+      <div class="folder-label">IMAGE FILTERS</div>
+    </div>
+    <div class="folder-icon" data-file="other">
+      <img src="assets/other.png" alt="">
+      <div class="folder-label">OTHER</div>
+    </div>
+    <div class="folder-icon" data-file="bkgdColor">
+      <img src="assets/bkgd-color.png" alt="">
+      <div class="folder-label">BKGD COLOR</div>
+    </div>
+    <div class="folder-icon" data-file="bkgdImage">
+      <img src="assets/bkgd-img.png" alt="">
+      <div class="folder-label">BKGD IMAGE</div>
+    </div>
+    <div class="folder-icon" data-file="layout">
+      <img src="assets/layout.png" alt="">
+      <div class="folder-label">LAYOUT</div>
+    </div>
+    <div class="folder-icon" data-file="textEffects">
+      <img src="assets/text-effects.png" alt="">
+      <div class="folder-label">TEXT EFFECTS</div>
+    </div>
+    <div class="folder-icon" data-file="textAnimation">
+      <img src="assets/animations.png" alt="">
+      <div class="folder-label">TEXT ANIMATIONS</div>
+    </div>
+  </aside>
 
-				<label> JS</label>
-				<textarea id="js-code" onkeyup="run()"></textarea>
-			</div>
-			<div class="editor__footer">
-				<div class="editor__footer--left">
-					<a href="#console-popup"><button class="editor__btn editor__run">Run ></button></a>
-					<a<button class="editor__btn editor__reset" onclick="reset()">Reset ></button></a>
-				</div>
- 				<div class="editor__footer--right">
-					<p> Open the <b>START</b> folder to begin. Copy and paste code into the area above to start building your poster. Read the code comments along the way to help you learn about the functions of code you are using. When you're ready, click <b>RUN</b> to see what you made! </p>
-				</div>
-			</div>
-		</div>
-	</div>
+  <!-- EDITOR WINDOW -->
+  <section class="app-window" id="editor-window">
+    <header class="window-titlebar">
+      <h1>Project Editor</h1>
+      <div class="editor-toolbar">
+        <button class="editor-btn run" data-action="run">Run ></button>
+        <button class="editor-btn reset" data-action="reset">Reset ></button>
+        <button class="editor-btn load-example" data-action="load-example">Load Example ></button>
+      </div>
+    </header>
 
-	<!-- CONSOLE POPUP -->
-	<div id="console-popup" class="console_overlay">
-		<div class="editor__console">
-			<iframe id="output"></iframe>
+    <div class="window-body">
+      <div class="editor-toolbar">
+        <span class="editor-hint">Open the <b>START</b> folder to begin. Copy and paste code into the area below to
+          start building your poster. Read the code comments along the way to help you learn about the functions of code
+          you are using. When you're ready, click <b>RUN</b> to see what you made!</span>
+      </div>
 
-			<ul class="editor__console-logs"></ul>
-			<a class="console_close" href="#">&times;</a>
-			</form>
-		</div>
-	</div>
+      <div class="editor-container">
+        <div class="editor-section">
+          <div class="editor-label">HTML</div>
+          <div id="editor-html" class="editor" data-placeholder="Paste or write your HTML code here"></div>
+        </div>
 
-	<!-- Required Ace Libraries -->
-	<script src="lib/js/ace-editor/src-min/ace.js"></script>
-	<script type="text/javascript" src="lib/js/ace-editor/src-min/mode-html.js"></script>
-	<script src="lib/js/ace-editor/src-min/ext-language_tools.js"></script>
+        <div class="editor-section">
+          <div class="editor-label">CSS</div>
+          <div id="editor-css" class="editor" data-placeholder="Paste or write your CSS code here"></div>
+        </div>
 
-	<!-- Custom Scripts -->
-	<script src="lib/js/editor.js"></script>
-	<script src="lib/js/editor-console.js"></script>
+        <div class="editor-section">
+          <div class="editor-label">JS</div>
+          <div id="editor-js" class="editor" data-placeholder="Paste or write your JavaScript code here"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<!-- FOLDER POPUP -->
-	<div id="folder-popup" class="folder_overlay">
-		<div class="inside-folder">
-			<ul class="folder-content"></ul>
-			<p id="display_code"></p>
-			<a class="folder_close" href="#">&times;</a>
-		</div>
-	</div>
+  <!-- ABOUT PANEL -->
+  <section id="about-panel" class="panel hidden">
+    <header class="panel-header">
+      <h2>ABOUT THE PROJECT</h2>
+      <button class="panel-close" data-action="close-about">×</button>
+    </header>
+    <div class="panel-body">
+      <h1>WHAT IS IT</h1>
+      <p>
+        <b>workingTitle</b> is a creative coding playground built for exploration. It was made for artists and
+        designers who are curious about how code can behave like paint, collage, or sound; something that can be
+        played with, shaped, and reimagined.
+      </p>
+      <br>
+      <p>
+        Rather than focusing on precision or perfection, <b>workingTitle</b> encourages discovery. It’s a space for
+        sketching with HTML, CSS, and JavaScript — the building blocks of the web — to see what can happen when
+        creative intuition meets computation.
+      </p>
+      <br>
+      <h1>A LITTLE CONTEXT</h1>
+      <p> This project began as my undergrad senior capstone, a challenge to create something that represented
+        everything I had learned in four years of design school. I wanted my final piece to be an homage to where I
+        started: computer science, my original major and eventual minor.
+      </p>
+      <br>
+      <p>
+        When I first shifted from science to art, I expected a complete change in mindset, and I thought I'd experience
+        a 180 in how I approached problem-solving. To my surprise, the two fields share more than they differ. Both
+        demand structure, logic, and creativity equally. <b>workingTitle</b> grew out of a series of small experiments
+        that aimed to bridge those worlds. Each folder on
+        the desktop opens into a piece of that toolkit and are spaces to explore color, texture, type, and motion
+        through code
+        as
+        the medium. It’s a space where artists can create with logic, and coders can play with art.
+      </p>
+      <br>
+      <p> Thanks for stopping by, I'm excited to see whatcha make!</p>
+      <br>
+      <p>
+        Designed and developed by <b>Elli Cunanan</b>.
+        <br>
+        Check out my portfolio and other works here:
+        <a href="https://your-portfolio-url.com" target="_blank"
+          style="color:#3366cc; text-decoration:underline;">elli-cunanan.com →</a>
+      </p>
+    </div>
+  </section>
 
-	<!-- ABOUT POPUP BOX -->
-	<div id="about-popup" class="overlay">
-		<div class="popup">
-			<h3> ABOUT THE PROJECT</h3>
-			<p> I want creatives without a coding background to have a toolkit that can be used to create generative art because it allows creatives to experiment with a variety of visual ideas quickly.</p>
-			<br>
-			<h3> HOW IT WORKS</h3>
-			<p> Users can use this tool to "code their creativity" using HTML, CSS, and JavaScript. The goal is for them to gain experience interpreting code while still being creative. </p>
-			<a class="close" href="#">&times;</a>
-		</div>
-	</div>
+  <!-- REFERENCES PANEL -->
+  <section id="references-panel" class="panel hidden">
+    <header class="panel-header">
+      <h2>REFERENCES</h2>
+      <button class="panel-close" data-action="close-references">×</button>
+    </header>
+    <div class="panel-body">
+      <p> Below is a list of other helpful resources and artists that helped inspire this site. Feel free to check them
+        out.</p>
+      <br>
+      <h1> HELPFUL RESOURCES</h1>
+      <ul style="margin-left: 20px;">
+        <li>Rob Farmer – <a href="https://robfarmer.xyz" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">robfarmer.xyz →</a></li>
+        <li>Kiel Danger – <a href="https://www.kielm.com" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">kielm.com →</a></li>
+        <li>Space Type Generator – <a href="https://spacetypegenerator.com" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">spacetypegenerator.com →</a></li>
+        <li>p5.js – <a href="https://p5js.org/" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">p5js.org →</a></li>
+        <li>MDN – <a href="https://developer.mozilla.org/" target="_blank"
+            style="color:#3366cc; text-decoration:underline;">developer.mozilla.org →</a></li>
+      </ul>
+      <p style="margin-top: 1em;">
+        If you find other sites that add to the conversation, reach out and let me know. I'd love to check them
+        out too!
+      </p>
+    </div>
+  </section>
 
-<!-- FILE NAVIGATION -->
-	<div class="sidenav">
-		<p> Click on the folders to open up dialog box. <br> Use the folder labels to drag each folder around to rearrange your workspace. </p>
-		<!-- LINK TO START PAGE -->
-		<div id="start">
-			<div id="file-header"></div>
-			<a href="#folder-popup"<button onclick="swapToStart()"><img src="assets/start_icon.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">CLICK TO START</div>
-		</div>
+  <!-- PREVIEW PANEL -->
+  <section id="preview-panel" class="panel hidden">
+    <header class="panel-header" id="preview-header">
+      <h2>Project Preview</h2>
+      <div class="preview-actions">
+        <button id="btn-save" class="preview-btn save" title="Save to your computer">
+          <img src="assets/save.png" alt="Save">
+          <span>SAVE</span>
+          <span class="format-tag" id="save-format-label" aria-haspopup="true">PNG ▾</span>
+        </button>
+        <div class="save-menu hidden" id="save-menu" role="menu" aria-label="Choose export format">
+          <button type="button" data-format="png">PNG</button>
+          <button type="button" data-format="jpg">JPG</button>
+          <button type="button" data-format="webm">WEBM</button>
+          <button type="button" data-format="mp4">MP4</button>
+        </div>
+        <button id="btn-share" class="preview-btn share" title="Share via email">
+          <img src="assets/send.png" alt="Share">
+          <span>SHARE</span>
+        </button>
+        <button class="panel-close" data-action="close-preview">×</button>
+      </div>
+    </header>
+    <div class="panel-body preview-body">
+      <iframe id="preview-frame" class="preview-frame"></iframe>
+    </div>
+  </section>
 
-		<!-- LINK TO HEADER TEXT PAGE -->
-		<div id="header-text">
-			<a href="#folder-popup"<button onclick="swapToHeaderText()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">HEADER TEXT</div>
-		</div>
+  <!-- ======= DESKTOP FOLDER WINDOWS ======= -->
 
-		<!-- LINK TO URL IMAGES PAGE -->
-		<div id="url-images">
-			<a href="#folder-popup"<button onclick="swapToURLImages()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">IMAGES W/ URL</div>
-		</div>
+  <!-- START -->
+  <section id="window-start" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>START</h2>
+      <button class="panel-close" data-close="window-start">×</button>
+    </header>
+    <div class="panel-body">
+      <p>Welcome to <b>workingTitle</b>! <br> This toolkit helps you make generative art using the three core coding
+        languages of the internet. Let's start by understanding what each does.
 
-		<!-- LINK TO BKGD COLORS PAGE -->
-		<div id="bkgd-colors">
-			<a href="#folder-popup"<button onclick="swapToBKGDColors()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">BKGD COLORS</div>
-		</div>
+        <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
 
-		<!-- LINK TO BKGD IMAGES PAGE -->
-		<div id="bkgd-images">
-			<a href="#folder-popup"<button onclick="swapToBKGDImages()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">BKGD IMAGES</div>
-		</div>
+        <b>HTML</b> defines <i> what</i> will appear on each page.<br>
+        <i>(HTML = elements)</i>
+        <br><br>
+        <b>CSS</b> defines <i>how</i> those elements look.<br>
+        <i>(CSS = style)</i>
+        <br><br>
+        <b>Javascript</b> defines <i>what</i> those elements do.<br>
+        <i>(Javascript = behavior)</i>
 
-		<!-- LINK TO PARAGRAPH TEXT PAGE -->
-		<div id="para-text">
-			<a href="#folder-popup"<button onclick="swapToParaText()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">PARAGRAPH TEXT</div>
-		</div>
+        <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
 
-		<!-- LINK TO BOLD TEXT PAGE -->
-		<div id="bold-text">
-			<a href="#folder-popup"<button onclick="swapToBoldText()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">BOLD TEXT</div>
-		</div>
+        Let's start building your own project! Choose a folder to explore tools and starter code templates. Add whatever
+        you'd like and when you're ready, hit the "Run" button on the editor to see what you've made.
+      </p>
+    </div>
+  </section>
 
-		<!-- LINK TO ITALIC TEXT PAGE -->
-		<div id="italic-text">
-			<a href="#folder-popup"<button onclick="swapToItalicText()"><img src="assets/icons.png" alt="folder icon" width="100" height="80"></button></a>
-			<div id="file_text">ITALIC TEXT</div>
-		</div>
-	</div>
-	<script>
-		function run(){
-			let htmlCode = document.getElementById("html-code").value;
-			let cssCode = document.getElementById("css-code").value;
-			let jsCode = document.getElementById("js-code").value;
-			let output = document.getElementById("output");
+  <!-- TEXT TOOLS -->
+  <section id="window-textStyles" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>TEXT STYLE</h2>
+      <button class="panel-close" data-close="window-textStyles">×</button>
+    </header>
 
-			output.contentDocument.body.innerHTML = htmlCode +"<style>"+cssCode+"</style>";
-			output.contentWindow.eval(jsCode);
-		}
-	</script>
-	<script src="lib/js/function.js"></script>
+    <div class="panel-body">
+      <p>Text gives your project a voice; you’ll use <b>HTML</b> to add it and <b>CSS</b> to style it.</p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>HEADERS</h3>
+      <p>
+        Header tags (<code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>) define titles and section headings.
+        The smaller the number, the larger and more important the text. Some examples of what that syntax looks like are
+        below:
+      </p>
+      <pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;h2&gt;Subheading&lt;/h2&gt;
+&lt;h3&gt;Smaller Section Title&lt;/h3&gt;</code></pre>
+      <br>
+      <h3>PARAGRAPHS</h3>
+      <p>
+        Paragraphs are written with the <code>&lt;p&gt;</code> tag.
+        Use this tag for most blocks of body text.
+      </p>
+      <pre><code>&lt;p&gt;This is a simple paragraph of text.&lt;/p&gt;</code></pre>
+      <br>
+      <h3>TEXT STYLES</h3>
+      <p>
+        Emphasize or decorate words using inline tags.
+      </p>
+      <pre><code>&lt;b&gt;Bold text&lt;/b&gt;
+&lt;i&gt;Italic text&lt;/i&gt;
+&lt;u&gt;Underlined text&lt;/u&gt;
+&lt;em&gt;Emphasized text&lt;/em&gt;</code></pre>
+
+      <p><b>TIP:</b> Use these tags inside of header or paragraph tags to show importance.
+        <br><br>Example:
+      <pre><code>&lt;p&gt;This is a &lt;b&gt;really&lt;/b&gt; important word.&lt;/p&gt;</code></pre> gives you →
+      This is a <b>really</b> important word.</code>
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>FONT & COLOR (CSS)</h3>
+      <p>
+        Once your text exists in <b>HTML</b>, you can customize its look in <b>CSS</b>. Below is an example of how to
+        define the
+        text style. Read on to learn about each part of the syntax.
+      </p>
+
+      <pre><code>p {
+  font-family: 'Arial';
+  font-size: 18px;
+  color: #9FD1FF;
+  text-align: center;
+}</code></pre>
+
+      <p>
+        The main parts of this consist of font, size, color, and alignment. In the example above,
+        the "p" indicates you are setting the style for all text written using the
+        <code>&lt;p&gt;</code> paragraph tag. You can do the same for headers (for example,
+        <code>h1 { ... }</code>).
+      </p>
+
+      <br>
+      <h4>Font Family</h4>
+      <p>
+        CSS automatically recognizes a few fonts, known as "web-safe" fonts. They include:
+      </p>
+      <ul style="margin-left: 20px;">
+        <li>Arial (sans-serif)</li>
+        <li>Brush Script MT (cursive)</li>
+        <li>Courier New (monospace)</li>
+        <li>Garamond (serif)</li>
+        <li>Georgia (serif)</li>
+        <li>Tahoma (sans-serif)</li>
+        <li>Times New Roman (serif)</li>
+        <li>Trebuchet MS (sans-serif)</li>
+        <li>Verdana (sans-serif)</li>
+      </ul>
+
+      <br>
+      <p>
+        You may have noticed that many websites use fonts that are not on this list. To do this, the font must be
+        loaded from the web using a URL. This is pretty common, and here's how that looks in practice.
+        <br><br>
+        To start, you need to add the <i>@import</i> tag at the top of your <b>CSS</b> file by pasting it before all of
+        your other <b>CSS</b> styles. This example uses a font from <i>Google Fonts</i>:
+      </p>
+
+      <pre><code>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
+</code></pre>
+      <p>Now that the font is imported, you can apply it anywhere else in your <b>CSS</b> file.</p>
+      <pre><code>
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  color: #9FD1FF;
+}</code></pre>
+
+      <p><b>TIP:</b> Keep copyright in mind when choosing fonts! Fonts from <i>Google Fonts</i> are open source, which
+        means they are free to use. However, some font sites require a license if you're using the font for professional
+        or commercial
+        work. If you're just experimenting or making something for yourself, you're generally in the clear. Licensing
+        matters most when you plan to sell or publicly distribute the final design.</p>
+
+      <br>
+      <h4>Font Size</h4>
+      <p>
+        Font size is measured in pixels. A good general range for body text is around
+        16px–20px, but this is not a strict rule. Do whatever feels right to you!
+      </p>
+
+      <br>
+      <h4>Font Color</h4>
+      <p>
+        You can use either color names (like "red" or "blue") or color codes
+        (HEX or RGBA). If you know the color visually but not the code, you can search for the
+        HEX number online. The internet is your friend for making this step easier!
+      </p>
+
+      <br>
+      <h4>Text Alignment</h4>
+      <p>
+        You can control how text is positioned horizontally using "text-align."
+        Options include <i>left</i>, <i>right</i>, <i>center</i>, and <i>justify</i>.
+      </p>
+    </div>
+  </section>
+
+  <!-- TEXT EFFECTS -->
+  <section id="window-textEffects" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>TEXT EFFECTS</h2>
+      <button class="panel-close" data-close="window-textEffects">×</button>
+    </header>
+
+    <div class="panel-body">
+      <p>
+        Text can do more than just sit on the page. It can glow, bend, or even look 3D.
+        These effects are created with <b>CSS</b>, and they build on what you’ve already learned about styling.
+      </p>
+      <br>
+      <p>
+        <b>JUST A NOTE:</b> The <code>&lt;h1&gt;</code> tag is used in multiple examples below. This tag should only be
+        used if the provided <b>HTML</b> also uses h1. If h1 is <b>NOT</b> the tag being used in your <b>HTML</b>, use
+        the correct corresponding tag instead. Failure to do so will make it so your <b>CSS</b> styling won't apply to
+        your text and
+        make you real sad!
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>GLOWING TEXT</h3>
+      <p>
+        Use "<i>text-shadow</i>" to make glowing or neon-style text. You can layer multiple shadows for brighter
+        effects. Each
+        shadow adds another layer of glow. Try different colors or intensities for variety. See the example below:
+      </p>
+
+      <pre><code>h1 {
+  color: #7FA8FF;
+  text-shadow:
+    0 0 5px #7FA8FF,
+    0 0 10px #7FA8FF,
+    0 0 20px #3C4BE0;
+}</code></pre>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>OUTLINED TEXT</h3>
+      <p>
+        You can outline text using the "<i>-webkit-text-stroke</i>" property (supported in most browsers).
+      </p>
+
+      <pre><code>h1 {
+  color: transparent;
+  -webkit-text-stroke: 2px #7FA8FF;
+}</code></pre>
+
+      <p>
+        <b>TIP:</b> Combine this with the "<i>text-shadow</i>" styling discussed in the Glowing Text section above for
+        bold,
+        poster-like lettering.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>3D TEXT (USING SHADOWS)</h3>
+      <p>
+        You can create a 3D illusion using multiple shadows with different offsets.
+      </p>
+
+      <pre><code>h1 {
+  color: #9FD1FF;
+  text-shadow:
+    1px 1px 0 #000,
+    2px 2px 0 #000,
+    3px 3px 0 #000;
+}</code></pre>
+
+      <p>
+        The more shadows you stack, the deeper the text looks.
+        Adjust the direction (x, y) to control the “light source.” The <i>text-shadow</i> syntax here is left/right
+        offset,
+        up/down offset, blur, and color. To change the direction of the shadow, change the pixel offset numbers from
+        positive to negative. Play with these values to see how the effect changes!</p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>WAVY OR CURVED TEXT</h3>
+      <p>
+        Let's start with a quick <b>HTML</b> structure to set up the elements to display.
+      </p>
+
+      <pre><code>&lt;div class="wave-text"&gt;Hello World&lt;/div&gt;</code></pre>
+
+      <p>
+        The class "<i>wave-text</i>" is important syntax because it allows us to recall this section of text in the
+        <b>CSS</b>
+        properties. We'll utilize the "<i>transform</i>" property to get the text to move the way we want.
+      </p>
+
+      <pre><code>.wave-text {
+  display: inline-block;
+  font-size: 32px;
+  animation: wave 2s infinite linear;
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}</code></pre>
+
+      <p>
+        This example gives your text a gentle wave motion reminiscent of a 90s web banner. Let's breakdown the different
+        properties used here.
+      </p>
+
+      <br>
+      <h4>Display</h4>
+      <p>
+        The display property is used to control the layout of elements. It has multiple different options which include
+        (but aren't limited to) <i>block</i>, <i>inline-block</i>, <i>flex</i>, and <i>grid</i>. The exmaple above uses
+        inline-block, which tells the <b>HTML</b> to display the elements on the same line with block properties (pretty
+        self-explanitory given its name!). For more information about the different property options, I'd recommend
+        heading over to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display"
+          style="color:#7FA8FF;">THIS SITE</a>.
+      </p>
+
+      <br>
+
+      <h4>Animation</h4>
+      <p>
+        The <i>@keyframes</i> property is used to specify sequential steps that the <b>CSS</b> code will execute. In
+        this specific
+        example, the steps are defined using a transform rule, where the text will move and rotate to the specified
+        angles.
+        <br><br>
+        Defined in our <i>@keyframes</i>, we've named all the transformation actions we want "wave." Now let's look back
+        at the
+        <i>.wave-text</i> block and break down the syntax. The first part calls for the "wave" function. Following is
+        the
+        duration (2 seconds), iteration count (continue indefinitely), and timing (constant, no aceleration or
+        deceleration).
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>PERSPECTIVE / ROTATED TEXT</h3>
+      <p>
+        You can use transformations to tilt or rotate text in 3D space.
+      </p>
+
+      <pre><code>h1 {
+  transform: perspective(400px) rotateY(25deg) rotateX(10deg);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }</code></pre>
+
+      <p>
+        <b>TIP:</b> Combine this with shadows or gradients for a retro 3D logo look.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h4>BEST PRACTICES</h4>
+      <ul style="margin-left: 20px;">
+        <li>Limit effects. Too many can will make text hard to read.</li>
+        <li>Use glow or shadow on dark backgrounds for contrast.</li>
+        <li>Keep animations subtle and slow.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ANIMATION -->
+  <section id="window-textAnimation" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>ANIMATION</h2>
+      <button class="panel-close" data-close="window-textAnimation">×</button>
+    </header>
+
+    <div class="panel-body">
+      <p>
+        Animation adds life to your designs by combining movement, timing, and flow.
+        There are two main types of animation you might use.
+      </p>
+
+      <ul style="margin-left: 20px;">
+        <li><b>CSS animations</b>: handled by style rules and run automatically.</li>
+        <li><b>JavaScript animations</b>: respond to "events" (like a click or scroll) defined in the code.</li>
+      </ul>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>CSS TRANSITIONS (Simple Movement)</h3>
+      <p>
+        Transitions make changes between changes (known as states) smooth. A common example of this might be a button on
+        a website becoming darker when your cursor hovers over it. Below is a <b>CSS</b> example of a hover transition:
+      </p>
+
+      <pre><code>
+button {
+  background-color: #7FA8FF;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3C4BE0;
+}</code></pre>
+
+      <p>
+        The <i>transition</i> tells the browser how long to animate the change.
+        In this example, the button fades smoothly to a darker blue when hovered.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>CSS KEYFRAMES (Looping Animation)</h3>
+      <p>
+        <i>Keyframes</i> define continuous or repeating motion. They’re written entirely in <b>CSS</b>, and can loop
+        forever.
+      </p>
+
+      <pre><code>
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+.ball {
+  animation: bounce 1s infinite ease-in-out;
+}</code></pre>
+
+      <p>
+        Here, the ball moves up and down forever using only <b>CSS</b>, no JavaScript needed.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>CSS FADE EFFECTS</h3>
+      <p>
+        You can fade elements in or out using <i>opacity</i> inside keyframes:
+      </p>
+
+      <pre><code>
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.text {
+  animation: fadeIn 2s ease forwards;
+}</code></pre>
+
+      <p>
+        <b>NOTE:</b> <i>forwards</i> is what keeps the element visible after the animation ends.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>CSS ROTATION</h3>
+      <p>
+        You can spin an element continuously.
+      </p>
+
+      <pre><code>
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.icon {
+  animation: spin 3s linear infinite;
+}</code></pre>
+
+      <p>
+        <b>NOTE:</b> The term <i>linear</i> in the syntax keeps the spin speed constant, which is great for icons or
+        loading symbols.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3> MULTIPLE CSS ANIMATIONS</h3>
+      <p>
+        Why stop at just one animation?? Try stacking multiple together!
+      </p>
+
+      <pre><code>
+@keyframes float {
+  0% { transform: translateY(0); color: #7FA8FF; }
+  50% { transform: translateY(-10px); color: #9FD1FF; }
+  100% { transform: translateY(0); color: #7FA8FF; }
+}
+
+.title {
+  animation: float 2s ease-in-out infinite;
+}</code></pre>
+
+      <p>
+        This <b>CSS</b> block creates a gentle floating motion, which could be cool for titles or glowing labels.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>Interactive Animation using CSS and Javascript</h3>
+      <p>
+        <b>CSS</b> animations run automatically, but with <b>JavaScript</b>, you can control <i>when</i> they start.
+        In this example, <b>JavaScript</b> toggles a class that triggers a <b>CSS</b> animation.
+
+        <br><br>
+
+        Remember: <b>Javascript</b> defines the behavior while <b>CSS</b> defines the style, or what the element looks
+        like.
+      </p>
+
+      <pre><code>&lt;!-- HTML --&gt;
+&lt;button onclick="document.body.classList.toggle('shake')"&gt;Shake&lt;/button&gt;
+
+/* CSS */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.3s ease;
+}</code></pre>
+
+      <p>
+        The <b>JavaScript</b> part is only this line:
+      </p>
+      <pre><code>document.body.classList.toggle('shake')</code></pre>
+      <p>
+        That one command tells the browser to add or remove the shake class, which runs the <b>CSS</b> animation.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>BEST PRACTICES</h3>
+      <ul style="margin-left: 20px;">
+        <li>Use animations to enhance your page, but be careful not to overwhelm it.</li>
+        <li>Keep motion durations under 2 seconds for natural feel.</li>
+        <li>Start with the <b>CSS</b> and bring in <b>Javacript</b> actions when you need help controlling timing.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BKGD COLOR -->
+  <section id="window-bkgdColor" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>BKGD COLOR</h2>
+      <button class="panel-close" data-close="window-bkgdColor">×</button>
+    </header>
+    <div class="panel-body">
+      <p>
+        The background color sets the overall tone of your piece. To change it, we’ll target the
+        <i>&lt;body&gt;</i> element, which defines the entire page space. You can describe a color in two main ways:
+      <ul style="margin-left: 20px;">
+        <li>Simple color names your computer already recognizes (like black, skyblue, or tomato)</li>
+        <li>Color codes, which are more precise (like #1A76FF or rgba(112, 230, 213, 1))</li>
+      </ul>
+
+      <br>
+
+      If you're aiming for a specific color, there's no need to guess. You can search for the color code directly
+      online. There are lots of sites that let you browse or even upload an image to match the color you're wanting.
+      </p>
+      <pre><code>body {
+    background-color: PUT COLOR HERE;
+  }</code></pre>
+      <p>
+        Because this changes the appearance of your page, this is <b>CSS</b> code.
+      </p>
+    </div>
+  </section>
+
+  <!-- BKGD IMAGE -->
+  <section id="window-bkgdImage" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>BKGD IMAGE</h2>
+      <button class="panel-close" data-close="window-bkgdImage">×</button>
+    </header>
+    <div class="panel-body">
+      <p>
+        To make the bkgd an image, target the body of the project. Paste a valid URL in the designated area. Since this
+        references appearance, this is <b>CSS</b> code.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <pre><code>body {
+        background-image: url("PASTE IMAGE URL HERE");
+        background-size: cover;
+      }</code></pre>
+
+      <h4>Background Size</h4>
+      <p>
+        This tells the CSS how big to make the image. The example of "cover" used here scales the image to fill the
+        entire background.
+      </p>
+    </div>
+  </section>
+
+  <!-- IMAGES -->
+  <section id="window-images" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>IMAGES</h2>
+      <button class="panel-close" data-close="window-images">×</button>
+    </header>
+
+    <div class="panel-body">
+      <p>
+        Where adding a background image targets <b>CSS</b> because it affects the body of the composition, adding images
+        as visual elements uses <b>HTML</b>. Think of it as the difference between adding wallpaper to a room versus a
+        framed photo. One defines the style of the room, whereas the other is a decoration that sits on top of its
+        background.
+        <br>
+        You’ll use the <code>&lt;img&gt;</code> tag to display these types of images and connect a file saved in your
+        project.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>ADDING AN IMAGE</h3>
+      <p>
+        The <i>src</i> attribute tells the computer where the image file lives, and <i>alt</i> provides a
+        short description for accessibility. It's best practice to provide an <i>alt</i> text description because this
+        is the text that will display on the screen if the image link were to break or be unreadable.
+      </p>
+      <pre><code>&lt;img src="assets/example.png" alt="Example image"&gt;</code></pre>
+
+      <p>
+        <b>Tip:</b> Keep your image files inside an <code>assets</code> folder (or another organized folder)
+        and always use clear filenames (like <code>photo.png</code> or <code>project-banner.jpg</code>) that don't have
+        any spaces or special characters. This helps ensure that your images don't have any trouble linking.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>SIZING IMAGES</h3>
+      <p>
+        While it's <i>possible</i> to change the size of an image directly in <b>HTML</b> using width and height properties as shown below:
+      </p>
+      <pre><code>&lt;img src="assets/example.png" width="200" height="200" alt="Example image"&gt;</code></pre>
+
+      <p>
+        it’s <i>recommended</i> to control image size with <b>CSS</b> instead. It's considered best practice and
+        keeps your <b>HTML</b> clean. Overall it makes styling easier to update later.
+      </p>
+      <pre><code>img {
+  width: 200px;
+  height: auto;
+}</code></pre>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>ALIGNMENT & POSITION</h3>
+      <p>Center an image on the page with the display property.</p>
+      <pre><code>img {
+  display: block;
+  margin: 0 auto;
+}</code></pre>
+
+      <p>Or float the image beside text:</p>
+      <pre><code>img {
+  float: left;
+  margin-right: 20px;
+}</code></pre>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <p>
+        When you use <b>CSS</b>, you only need one <i>img</i> block to include all your adjustments (size, border, filters, etc.).
+        This approach makes your <b>CSS</b> more organized and helps you avoid repeating multiple <i>img</i> blocks for
+        every style change.
+      </p>
+
+      <pre><code>img {
+  width: 200px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- COLORS -->
+  <section id="window-colors" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>COLORS</h2>
+      <button class="panel-close" data-close="window-colors">×</button>
+    </header>
+
+    <div class="panel-body">
+      <p>
+        Color helps define the tone and feel of your work.
+        In <b>CSS</b>, colors can be written in several ways, the most common are <i>HEX</i>, <i>RGB</i>, and
+        <i>HSL</i>.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>HEX CODES</h3>
+      <p>
+        HEX codes use six numbers or letters to describe color.
+        They always start with a <i>#</i> symbol.
+      </p>
+      <pre><code>body {
+  background-color: #050718;
+}</code></pre>
+
+      <p>
+        It's impossible to know the HEX code to every color you might want to use. The internet is going to be your best
+        friend here. There's plenty of websites that offer free color wheels and provide you with a HEX code value once
+        you find a color you want. Some basics to get you started: <i>#000000</i> is black, and
+        <i>#ffffff</i> is white.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>RGB COLORS</h3>
+      <p>
+        RGB stands for <i>red, green, and blue</i>.
+        Each value goes from 0 to 255, the higher the number, the brighter that color.
+      </p>
+      <pre><code>body {
+  background-color: rgb(127, 168, 255);
+}</code></pre>
+
+      <p>
+        You can also use <i>rgba()</i> to include transparency.
+      </p>
+      <pre><code>body {
+  background-color: rgba(127, 168, 255, 0.5);
+}</code></pre>
+
+      <p>
+        The A in RGBA represents the Alpha channel. The last number (0.5 here) controls opacity, where
+        <i>0</i> is invisible and <i>1</i> is fully visible.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>HSL COLORS</h3>
+      <p>
+        HSL stands for <i>hue, saturation, and lightness</i>.
+      </p>
+      <pre><code>body {
+  background-color: hsl(230, 100%, 50%);
+}</code></pre>
+      <p> Let's breakdown this syntax:</p>
+      <ul style="margin-left: 20px;">
+        <li>The first value is the hue (like picking a color on a wheel).</li>
+        <li>The second is saturation (how colorful it is).</li>
+        <li>The third is lightness (how bright or dark it appears).</li>
+      </ul>
+
+      <br>
+
+      <p> While there is no standard practice between using RGB, RBGA, or HSL, HSL is considered one of the easiest ways
+        to adjust color tones.</p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>LINEAR GRADIENTS</h3>
+      <p>
+        You can blend multiple colors using gradients. The syntax for gradients is written as a direction, followed by
+        the start and stop colors.
+      </p>
+      <pre><code>body {
+  background: linear-gradient(to right, #7FA8FF, #050718);
+}</code></pre>
+
+      <p>
+        <b>TIP:</b> Try switching <i>to right</i> with <i>to bottom</i> or give it an angle such as <i>45deg</i>
+        for different direction options.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>COLOR VARIABLES</h3>
+      <p>
+        As your projects grow, you might start using the same colors in multiple places.
+        For example, your main background color, text color, and highlight colors might all belong to a certain color
+        palette you've defined for your project.
+      </p>
+
+      <p>
+        <b>PRO TIP:</b> Instead of typing the same HEX code everywhere (who has time to memorize that alphabet soup), you
+        can save it as a variable in <b>CSS</b>.
+        This makes your code easier to update later, you only need to change the color once in the variable and it'll
+        update everywhere else it is used.
+      </p>
+
+      <pre><code>:root {
+  --main-blue: #7FA8FF;
+  --dark-bg: #050718;
+}</code></pre>
+
+      <p>
+        The <i>:root</i> selector is like the “dictionary” of your <b>CSS</b>, any variables you define here can be used
+        anywhere else in your code.
+      </p>
+
+      <br>
+
+      <p>
+        To use a saved color, call it with <i>var(--name)</i> instead of typing the color code again.
+      </p>
+
+      <pre><code>body {
+  background-color: var(--dark-bg);
+  color: var(--main-blue);
+}</code></pre>
+
+      <p>
+        This tells the browser: “Use whatever value I saved as <i>--dark-bg</i> and <i>--main-blue</i>.”
+      </p>
+
+      <br>
+
+      <p>
+        Here’s why this matters:
+      </p>
+
+      <ul style="margin-left: 20px;">
+        <li>If you ever want to change your main color, you only change it once.</li>
+        <li>It keeps your code clean and consistent.</li>
+        <li>You can create full themes or switch palettes by only needing to update one section.</li>
+      </ul>
+
+      <br>
+
+      <p>
+        You can even use variables inside gradients or filters! Once they're defined, they behave just like regular
+        colors.
+      </p>
+
+      <pre><code>body {
+  background: linear-gradient(to right, var(--main-blue), var(--dark-bg));
+}</code></pre>
+
+      <p>
+        Think of variables as your project’s paint palette. Once you mix your colors at the top, you can reuse them
+        anywhere.
+      </p>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <section id="window-filters" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>FILTERS</h2>
+      <button class="panel-close" data-close="window-filters">×</button>
+    </header>
+
+    <div class="panel-body">
+      <p>
+        Filters let you change how images look without requiring the use of a photo editor.
+        You can adjust brightness, color, blur, and more.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>ADDING FILTERS</h3>
+      <p>
+        Filters are written inside a <b>CSS</b> block. You can use one or stack several together for creative effects.
+      </p>
+
+      <h4>Example Filter Options</h4>
+      <ul style="margin-left: 20px;">
+        <li><code>grayscale(100%)</code> → turns your image black & white</li>
+        <li><code>blur(4px)</code> → softens or defocuses your image</li>
+        <li><code>brightness(120%)</code> → makes the image lighter</li>
+        <li><code>contrast(150%)</code> → deepens darks and lights</li>
+        <li><code>saturate(200%)</code> → makes colors pop</li>
+        <li><code>sepia(100%)</code> → gives a vintage look</li>
+        <li><code>invert(100%)</code> → flips the colors</li>
+      </ul>
+
+      <pre><code>img {
+  filter: brightness(120%) contrast(110%) saturate(130%);
+}</code></pre>
+      <p>
+        The example above showcases how multiple filters can be applied to the same image.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>ADDING HOVER EFFECTS</h3>
+      <p>
+        You can make filters react when the user hovers over an image. This is a great way to add interaction or
+        movement to your project.
+      </p>
+
+      <pre><code>img:hover {
+  filter: brightness(140%) contrast(120%);
+  transition: 0.3s ease;
+}</code></pre>
+
+      <p>
+        The <i>transition</i> line makes the change to the filter settings smooth in for .3 seconds instead of
+        being applied instantly. This is an easy trick to make your effects look more polished.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>OPACITY</h3>
+      <p>
+        Opacity changes how visible an element is. A value of <i>1</i> is fully visible, and <i>0</i> is
+        invisible.
+      </p>
+      <pre><code>img {
+  opacity: 0.8;
+}
+
+img:hover {
+  opacity: 1;
+  transition: 0.2s ease;
+}</code></pre>
+
+      <p>
+        You can also use <i>opacity</i> with hover to fade things in or out. In this example, the image has some
+        transparency until the cursor hovers over it, at which point the image is fully opaque.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>BEST PRACTICES</h3>
+      <ul style="margin-left: 20px;">
+        <li>Group all your filter effects in the same <i>img</i> block.</li>
+        <li>Use the <i>transition</i> attribute for smoother animations.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- LAYOUT -->
+  <section id="window-layout" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>LAYOUT</h2>
+      <button class="panel-close" data-close="window-layout">×</button>
+    </header>
+
+    <div class="panel-body">
+      <p>
+        Layout controls where things go on your page. Once you have text, images, and color, layout brings them together
+        into a single composition.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>BLOCKS AND INLINE ELEMENTS</h3>
+      <p>
+        Every <b>HTML</b> element is either <i>block</i> or <i>inline</i>.
+      </p>
+
+      <pre><code>p, h1 { 
+  display: block; 
+  }
+
+img { 
+  display: inline; 
+  }</code></pre>
+
+      <p>
+        <i>Block elements</i> start on a new line and stack vertically, building blocks.
+        <br>
+        <i>Inline elements</i> flow next to each other in the same line, like words in a sentence.
+        <br><br>
+        The example above is saying place all paragraph and h1 styled text on top of each other, but place all images
+        horizontally next to other elements.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>MARGINS & PADDING</h3>
+      <p>
+        Margins control space <u>outside</u> an element.
+        Padding controls space <u>inside</u> an element.
+      </p>
+
+      <pre><code>.box {
+  margin: 20px;
+  padding: 10px;
+}</code></pre>
+
+      <p>
+        Think of margins as the space between boxes, and padding as the packing peanuts inside them.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>POSITIONING</h3>
+      <p>
+        You can tell elements exactly where to sit using the <i>position</i> attribute.
+      </p>
+
+      <pre><code>.box {
+  position: absolute;
+  top: 50px;
+  left: 100px;
+}</code></pre>
+
+      <p>
+        Common position options:
+      </p>
+      <ul style="margin-left: 20px;">
+        <li><b>Absolute</b> → The applied element stays in one place (relative to the page scroll). Other elements will
+          act like its not there.</li>
+        <li><b>Relative</b> → This keeps the element in a normal spot in the page flow, but allows it to be nudged
+          around, if necessary.</li>
+        <li><b>Fixed</b> → Tells the browser "Keep this element in the same spot, do not move it even when the page is
+          scrolled."</li>
+        <li><b>Sticky</b> → The element follows scroll position until it reaches a threshold, like a navigation bar that
+          stays at the top of a
+          viewport window.</li>
+      </ul>
+
+      <br>
+
+      <p>
+        If its not specified, the default positioning is rendered as <i>static</i>.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>ALIGNMENT WITH FLEXBOX</h3>
+      <p>
+        Flexbox is a layout tool that helps you control how items line up inside a box. To use flexbox, you must put
+        your items inside a "container", and then apply the flex rules to the container, not to the items themselves.
+
+      <br>
+      <h4>What is a "container"?</h4>
+
+      A container is just any <b>HTML</b> element that wraps other elements.
+
+      Example <b>HTML</b>:
+      </p>
+
+      <pre><code>&lt;div&gt; class="container">
+  &lt;p&gt;Hello World&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+      <p>The &lt;div&gt; is the container, and the &lt;p&gt; is the item inside it. Now let's look at how to connect
+        this back to <b>CSS</b> to obtain some style properties:</p>
+
+      <pre><code>.container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;   
+}</code></pre>
+
+      <ul style="margin-left: 20px;">
+        <li>The "justify-content" attribute moves object horizontally and has options of left, center, and right.</li>
+        <li>"Align-items" can be given top, center, or bottom. It defines object's vertical movement.</li>
+      </ul>
+
+      <br>
+
+      <b>Pro tip:</b> Add <i>height: 100vh;</i> (where "vh" stands for viewport height) to your container to center
+      items vertically on the screen.
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>GRIDS</h3>
+      <p>
+        Grids let you divide your page into structured columns and rows.
+      </p>
+
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}</code></pre>
+
+      <p>
+        Each <i>1fr</i> is one equal fraction of the space. In the example above, the layout is being asked to be
+        divided into 3 even columns. The gap tells the display how many pixels to leave between each of these columns.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <p><b>TIP:</b> If you are trying to build a responsive layout (meaning it adapts if you resize the viewing/preview
+        window), use percentages or <i>vh/vw</i> instad of hard coding in pixel values. This makes it so your
+        layout will automatically calculate how much to adjust by depending on how much the viewport is resized to. This
+        is idea is how websites are built to work on both desktop browsers and phone screens.</p>
+    </div>
+  </section>
+
+  <!-- OTHER -->
+  <section id="window-other" class="panel hidden folder-window">
+    <header class="panel-header">
+      <h2>OTHER FUN STUFF</h2>
+      <button class="panel-close" data-close="window-other">×</button>
+    </header>
+
+    <div class="panel-body">
+      <p>
+        This folder is full of miscellaneous <b>CSS</b> effects. If you have any in mind you think should be added, I'd
+        love to chat! Email me <a href="mailto:ellinicolecunanan@gmail.com" style="color:#7FA8FF;">HERE</a>.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>TEXT SHADOWS</h3>
+      <p>
+        Text shadows can make type feel glowy, neon, or retro.
+      </p>
+      <pre><code>h1 {
+  text-shadow: 2px 2px 0 #000, 4px 4px 0 #7FA8FF;
+}</code></pre>
+      <p>
+        The first set moves the shadow, the second controls its color.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h4>NOTE:</h4>
+      <p>The following examples use <i>.box</i> in the syntax. In order to make these work for the <b>CSS</b>, it needs to be
+        linked to <b>HTML</b>. Here is a snippet of how that might look:</p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>BORDERS</h3>
+      <p>
+        Borders outline elements and help them stand out.
+        You can control the width, style, and color in the syntax.
+      </p>
+
+      <pre><code>.box {
+  border: 3px solid #7FA8FF;
+}</code></pre>
+
+      <p>
+        Common border styles:
+      </p>
+      <ul style="margin-left: 20px;">
+        <li>Solid</li>
+        <li>Dashed</li>
+        <li>Dotted</li>
+        <li>Double</li>
+      </ul>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>ROUNDED CORNERS</h3>
+      <p>
+        You can curve the edges of boxes, buttons, or images using border-radius.
+      </p>
+      <pre><code>.box {
+  border-radius: 12px;
+}</code></pre>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>BOX SHADOWS</h3>
+      <p>
+        Shadows add dimension and make elements pop off the screen.
+      </p>
+      <pre><code>.box {
+  box-shadow: 4px 4px 0 #050718;
+}</code></pre>
+      <p>
+        Here's the syntax breakdown: 4 pixel offset horizontally, 4 pixel offset vertically, 0 pixel blur radius, and
+        the HEX code sets the color to a dark almost-black.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>HOVER EFFECTS</h3>
+      <p>
+        You can make elements react to the user’s mouse with <i>:hover</i>.
+      </p>
+      <pre><code>.box:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}</code></pre>
+      <p>
+        Try pairing hover effects with shadows or color changes for added feedback.
+      </p>
+
+      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
+
+      <h3>ANIMATION</h3>
+      <p>
+        You can make things move or pulse by defining a <i>@keyframes</i> animation.
+      </p>
+
+      <pre><code>@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.box {
+  animation: float 2s ease-in-out infinite;
+}</code></pre>
+
+      <p>
+        The example above makes your element move up and down forever like it’s floating.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======= END DESKTOP FOLDER WINDOWS ======= -->
+
+  <!-- TASKBAR -->
+  <nav class="taskbar">
+    <div class="taskbar-left">
+      <button class="taskbar-btn" onclick="window.location.href='index.html'">Home</button>
+      <button class="taskbar-btn" data-action="open-about">About</button>
+      <button class="taskbar-btn" onclick="window.location.href='gallery.html'">Gallery</button>
+    </div>
+
+    <div class="taskbar-right">
+      <button class="taskbar-btn" data-action="open-references">References</button>
+      <div class="tray-clock" id="tray-clock"></div>
+    </div>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="lib/js/ace-editor/src-min/ace.js"></script>
+  <script src="lib/js/ace-editor/src-min/mode-javascript.js"></script>
+  <script src="lib/js/ace-editor/src-min/ext-language_tools.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="lib/js/editor.js"></script>
+  <script src="lib/js/function.js"></script>
 </body>
 
 </html>
