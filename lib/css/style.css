@@ -1159,7 +1159,7 @@ code {
   }
 
   .desktop-folders {
-    position: static;
+    position: relative;
     inset: unset;
     width: 100%;
     height: auto;
@@ -1168,6 +1168,7 @@ code {
     grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
     gap: 12px;
     pointer-events: auto;
+    z-index: 5;
   }
 
   .folder-icon {
@@ -1192,6 +1193,7 @@ code {
     width: 100%;
     height: auto;
     margin-top: 12px;
+    z-index: 1;
   }
 
   .window-body,
