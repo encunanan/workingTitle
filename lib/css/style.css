@@ -20,6 +20,12 @@ body.desktop {
   overflow: hidden;
 }
 
+@media (max-width: 900px) {
+  body.desktop {
+    overflow: auto;
+  }
+}
+
 /* ======= WORKINGTITLE BANNER ======= */
 .site-banner {
   position: fixed;
@@ -1142,4 +1148,94 @@ code {
 
 .resize-grip:hover {
   opacity: 1;
+}
+
+/* ======= MOBILE LAYOUT ======= */
+@media (max-width: 900px) {
+  .site-banner {
+    position: static;
+    margin: 12px auto 0;
+    text-align: center;
+  }
+
+  .desktop-folders {
+    position: static;
+    inset: unset;
+    width: 100%;
+    height: auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+    gap: 12px;
+    pointer-events: auto;
+  }
+
+  .folder-icon {
+    position: relative;
+    width: 86px;
+    justify-self: center;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .folder-icon img {
+    width: 64px;
+  }
+
+  .folder-label {
+    font-size: 14px;
+  }
+
+  .app-window {
+    position: relative;
+    inset: 0;
+    width: 100%;
+    height: auto;
+    margin-top: 12px;
+  }
+
+  .window-body,
+  .editor-container {
+    height: auto;
+  }
+
+  .editor {
+    height: 180px;
+  }
+
+  .panel,
+  .folder-window,
+  #preview-panel {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    left: 0 !important;
+    top: 0 !important;
+    transform: none;
+    height: auto;
+    max-height: none;
+    margin-top: 12px;
+  }
+
+  #preview-panel {
+    height: 70vh;
+  }
+
+  .preview-body {
+    height: calc(70vh - 48px);
+  }
+
+  .panel-header,
+  #preview-panel .panel-header {
+    cursor: default;
+  }
+
+  .resize-grip {
+    display: none;
+  }
+
+  .taskbar {
+    position: sticky;
+    bottom: 0;
+  }
 }
