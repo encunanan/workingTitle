@@ -233,9 +233,6 @@ body.desktop {
 }
 
 .folder-window .panel-body {
-  padding: 10px;
-  background: #fff;
-  color: #000;
   font-family: 'VT323', monospace;
   flex: 1;
   overflow-y: auto;
@@ -393,12 +390,15 @@ body.desktop {
   transform: translateX(-50%);
   width: 60%;
   max-width: 700px;
+  min-width: 320px;
+  min-height: 200px;
   background: #bcbcbc;
   border: 2px solid #fff;
   border-right-color: #000;
   border-bottom-color: #000;
   box-shadow: 3px 3px 0 #000;
   z-index: 150;
+  resize: none;
 }
 
 .panel-header {
@@ -462,6 +462,29 @@ pre {
 
 code {
   font-family: inherit;
+}
+
+/* ======= SCREENSAVER ======= */
+.screensaver {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+  cursor: none;
+}
+
+.screensaver.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.screensaver video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ======= BOTTOM TASKBAR ======= */
@@ -1036,25 +1059,25 @@ code {
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
 }
 
 .preview-actions .preview-btn {
   display: flex;
-  background: #1a1a1a;
-  border: 1px solid #435986;
-  padding: 0;
-  margin-left: 8px;
-  cursor: pointer;
-  filter: brightness(1) drop-shadow(1px 1px 0 #000);
-  transition: transform 0.1s ease, filter 0.1s ease;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  color: #7FA8FF;
-  border-radius: 2px;
+  background: #1a1a1a;
+  border: 1px solid #435986;
   padding: 6px 12px;
+  margin-left: 8px;
+  color: #7FA8FF;
   font-family: 'VT323', monospace;
   font-size: 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  filter: brightness(1) drop-shadow(1px 1px 0 #000);
+  transition: transform 0.1s ease, filter 0.1s ease;
 }
 
 .preview-actions .preview-btn:hover {
@@ -1080,10 +1103,6 @@ code {
   border-radius: 2px;
   cursor: pointer;
   user-select: none;
-}
-
-.preview-actions {
-  position: relative;
 }
 
 .save-menu {
@@ -1128,13 +1147,6 @@ code {
   filter: brightness(1) drop-shadow(1px 1px 0 #000);
 }
 
-.panel {
-  position: absolute;
-  min-width: 320px;
-  min-height: 200px;
-  resize: none;
-}
-
 .resize-grip {
   position: absolute;
   right: 4px;
@@ -1164,6 +1176,8 @@ code {
     width: 100%;
     height: auto;
     padding: 16px;
+    margin-top: 8px;
+    margin-bottom: 24px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
     gap: 12px;
@@ -1172,7 +1186,7 @@ code {
   }
 
   .folder-icon {
-    position: relative;
+    position: relative !important;
     width: 86px;
     justify-self: center;
     left: auto !important;
@@ -1192,7 +1206,7 @@ code {
     inset: 0;
     width: 100%;
     height: auto;
-    margin-top: 12px;
+    margin-top: 8px;
     z-index: 1;
   }
 
@@ -1239,5 +1253,80 @@ code {
   .taskbar {
     position: sticky;
     bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .glitch {
+    font-size: 36px;
+  }
+
+  .window-titlebar {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .editor-hint {
+    font-size: 14px;
+    margin: 0 4px;
+  }
+
+  .editor-btn {
+    padding: 4px 10px;
+    font-size: 15px;
+  }
+
+  #preview-panel .panel-header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .preview-actions {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .preview-actions .preview-btn {
+    margin-left: 0;
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+
+  .gallery-header h1 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 480px) {
+  .glitch {
+    font-size: 28px;
+  }
+
+  .taskbar-btn {
+    padding: 2px 8px;
+    font-size: 15px;
+  }
+
+  .taskbar-left,
+  .taskbar-right {
+    gap: 4px;
+    margin: 0 4px;
+  }
+
+  .gallery-header {
+    padding: 12px 12px 20px;
+  }
+
+  .gallery-header h1 {
+    font-size: 32px;
+  }
+
+  .editor-btn {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+
+  pre {
+    font-size: 14px;
   }
 }
