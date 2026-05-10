@@ -4,1084 +4,529 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>workingTitle Project</title>
+  <title>workingTitle — Creative Code Playground</title>
   <link rel="shortcut icon" type="image/png" href="assets/favicon.png">
 
-  <!-- Font + CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <!-- FONTS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=DotGothic16&family=Courier+Prime&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="lib/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 
-<body class="desktop">
+<body>
+  <div class="page">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div style="display:flex;gap:18px;">
+        <span>SYS:<span class="hi">ONLINE</span></span>
+        <span>MEM:<span class="hi">4096K</span></span>
+        <span>NET:<span class="hi">ACTIVE</span></span>
+      </div>
+      <span><span id="clk">00:00:00</span><span class="topbar-blink"> _</span></span>
+    </div>
 
-  <div class="site-banner">
-    <h1 class="glitch" data-text="workingTitle">workingTitle</h1>
+    <!-- HEADER -->
+    <div class="header">
+      <div>
+        <div class="logo">workingTitle</div>
+        <div class="logo-sub">&gt;_ CREATIVE CODE PLAYGROUND // V2.0</div>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li class="active"><a href="#">HOME</a></li>
+          <li><a href="#" onclick="openAbout(); return false;">ABOUT</a></li>
+          <li><a href="gallery.html">GALLERY</a></li>
+          <li><a href="#" onclick="openRefs(); return false;">REFS</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- INSTRUCTION BAR -->
+    <div class="instruct">
+      &gt; Open <span>START/</span> folder to begin &nbsp;·&nbsp; Load code into the <span>HTML</span> / <span>CSS</span> / <span>JS</span> editors below &nbsp;·&nbsp; Read comments to learn what each snippet does &nbsp;·&nbsp; Hit <span>RUN [F5]</span> to preview your creation!&nbsp;·&nbsp;<span class="cursor"></span>
+    </div>
+
+    <!-- DESKTOP -->
+    <div class="desktop">
+      <div class="desktop-label">&gt;&gt; FILESYSTEM //</div>
+      <div class="folder-grid" id="grid"></div>
+    </div>
+
+    <!-- THREE-PANEL EDITORS -->
+    <div class="editors-bar">
+      <div class="editors-toolbar">
+        <div class="titlebar-title">&gt;_ EDITORS</div>
+        <button class="tbar-btn" onclick="runCode()">RUN [F5]</button>
+        <button class="tbar-btn ghost" onclick="resetCode()">RESET</button>
+        <button class="tbar-btn ghost" onclick="loadExample()">EXAMPLE</button>
+      </div>
+      <div class="editors-row">
+        <div class="split-editor">
+          <div class="split-header split-html">[HTML]</div>
+          <div class="code-wrap">
+            <div class="line-nums" id="html-lnums">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div>
+            <textarea class="code-area" id="html-code" spellcheck="false"
+              placeholder="<!-- PASTE HTML HERE -->&#10;<!-- USE THE FOLDERS ABOVE TO GET STARTED -->"></textarea>
+          </div>
+        </div>
+        <div class="split-editor">
+          <div class="split-header split-css">[CSS]</div>
+          <div class="code-wrap">
+            <div class="line-nums" id="css-lnums">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div>
+            <textarea class="code-area" id="css-code" spellcheck="false"
+              placeholder="/* PASTE CSS HERE */&#10;/* STYLES FOR YOUR HTML ELEMENTS */"></textarea>
+          </div>
+        </div>
+        <div class="split-editor">
+          <div class="split-header split-js">[JS]</div>
+          <div class="code-wrap">
+            <div class="line-nums" id="js-lnums">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div>
+            <textarea class="code-area" id="js-code" spellcheck="false"
+              placeholder="// PASTE JS HERE&#10;// JAVASCRIPT FOR YOUR PAGE"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="statusbar">
+      <div class="st-left">
+        <span class="st-pill">READY</span>
+        <span>workingTitle v2.0</span>
+        <span>Designed by Elli Cunanan</span>
+      </div>
+      <a href="https://www.ecunanan.design" target="_blank" style="color:inherit;text-decoration:underline;">ecunanan.design →</a>
+    </div>
+
+    <!-- ABOUT POPUP -->
+    <div class="popup-overlay" id="about-popup" onclick="closeAboutOverlay(event)">
+      <div class="popup-box">
+        <div class="popup-titlebar">
+          <span class="popup-title">ABOUT</span>
+          <button class="popup-close" onclick="closeAbout()">[ X ]</button>
+        </div>
+        <div class="popup-body">
+          <div class="popup-desc">
+            <h2>WHAT IS IT</h2>
+            <p>workingTitle is a creative coding playground built for exploration, rather than focussing on precision or
+              perfection. It’s a space for sketching with HTML, CSS, and JavaScript (the building blocks of the web)
+              to see what can happen when creative intuition meets computation.</p>
+
+            <h2>A LITTLE CONTEXT</h2>
+            <p>This project began as my undergrad senior capstone, a challenge to create something that represented
+              everything I had learned in four years of design school. I wanted my final piece to be an homage to where
+              I started: computer science, my original major and eventual minor.</p>
+            <p>When I first shifted from science to art, I expected a complete change in mindset, and I thought I’d
+              experience a 180 in how I approached problem-solving. To my surprise, the two fields share more than they
+              differ. Both demand structure and creativity equally. workingTitle is a space where artists can create
+              with logic, and coders can play with art.</p>
+            <p>Thanks for stopping by, I’m excited to see whatcha make!</p>
+
+            <p>Designed and developed by Elli Cunanan. Check out my portfolio and other works here: <a href="https://www.ecunanan.design" target="_blank" style="color:#00ff41;text-decoration:underline;">ecunanan.design →</a></p>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <button class="tbar-btn ghost" onclick="closeAbout()">CLOSE [ESC]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- REFS POPUP -->
+    <div class="popup-overlay" id="references-popup" onclick="closeRefsOverlay(event)">
+      <div class="popup-box">
+        <div class="popup-titlebar">
+          <span class="popup-title">REFERENCES</span>
+          <button class="popup-close" onclick="closeRefs()">[ X ]</button>
+        </div>
+        <div class="popup-body">
+          <div class="popup-desc">
+            <p>Below is a list of other helpful resources and artists that helped inspire this site. Feel free to check them out.</p>
+            <h2>HELPFUL RESOURCES</h2>
+            <ul style="margin-left: 20px; line-height: 2.2;">
+              <li>Rob Farmer – <a href="https://robfarmer.xyz" target="_blank" style="color:#00ff41;text-decoration:underline;">robfarmer.xyz →</a></li>
+              <li>Kiel Danger – <a href="https://www.kielm.com" target="_blank" style="color:#00ff41;text-decoration:underline;">kielm.com →</a></li>
+              <li>Space Type Generator – <a href="https://spacetypegenerator.com" target="_blank" style="color:#00ff41;text-decoration:underline;">spacetypegenerator.com →</a></li>
+              <li>p5.js – <a href="https://p5js.org/" target="_blank" style="color:#00ff41;text-decoration:underline;">p5js.org →</a></li>
+              <li>MDN – <a href="https://developer.mozilla.org/" target="_blank" style="color:#00ff41;text-decoration:underline;">developer.mozilla.org →</a></li>
+            </ul>
+            <p>If you find other sites that add to the conversation, reach out and let me know. I'd love to check them out too!</p>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <button class="tbar-btn ghost" onclick="closeRefs()">CLOSE [ESC]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREVIEW POPUP -->
+    <div class="popup-overlay" id="preview-popup" onclick="closePreviewOverlay(event)">
+      <div class="popup-box preview-box">
+        <div class="popup-titlebar">
+          <span class="popup-title">&gt;_ PROJECT PREVIEW</span>
+          <div class="preview-actions">
+            <button class="preview-action-btn" onclick="savePng()">SAVE PNG</button>
+            <button class="preview-action-btn" onclick="shareCode()">SHARE</button>
+            <button class="popup-close" onclick="closePreview()">[ X ]</button>
+          </div>
+        </div>
+        <div class="preview-canvas-wrap">
+          <iframe id="pframe" style="width:100%;height:100%;border:none;display:block;"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOLDER POPUP -->
+    <div class="popup-overlay" id="popup" onclick="closePopupOverlay(event)">
+      <div class="popup-box">
+        <div class="popup-titlebar">
+          <span class="popup-title" id="popup-title">FOLDER</span>
+          <button class="popup-close" onclick="closePopup()">[ X ]</button>
+        </div>
+        <div class="popup-body">
+          <div class="popup-desc" id="popup-desc"></div>
+          <div class="popup-code-section">
+            <div class="popup-code-label">&gt;_ EXAMPLE CODE</div>
+            <pre class="popup-code" id="popup-code"></pre>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <button class="tbar-btn" onclick="loadPopupCode()">LOAD INTO EDITOR</button>
+          <button class="tbar-btn ghost" onclick="closePopup()">CLOSE [ESC]</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- DESKTOP FOLDERS -->
-  <aside class="desktop-folders" id="desktop-folders">
-    <div class="folder-icon" data-file="start">
-      <img src="assets/start.png" alt="">
-      <div class="folder-label">START</div>
-    </div>
-    <div class="folder-icon" data-file="textStyles">
-      <img src="assets/text-style.png" alt="">
-      <div class="folder-label">TEXT STYLES</div>
-    </div>
-    <div class="folder-icon" data-file="images">
-      <img src="assets/add-imgs.png" alt="">
-      <div class="folder-label">ADD IMAGES</div>
-    </div>
-    <div class="folder-icon" data-file="colors">
-      <img src="assets/colors.png" alt="">
-      <div class="folder-label">COLORS</div>
-    </div>
-    <div class="folder-icon" data-file="filters">
-      <img src="assets/img-filters.png" alt="">
-      <div class="folder-label">IMAGE FILTERS</div>
-    </div>
-    <div class="folder-icon" data-file="other">
-      <img src="assets/other.png" alt="">
-      <div class="folder-label">OTHER</div>
-    </div>
-    <div class="folder-icon" data-file="bkgdColor">
-      <img src="assets/bkgd-color.png" alt="">
-      <div class="folder-label">BKGD COLOR</div>
-    </div>
-    <div class="folder-icon" data-file="bkgdImage">
-      <img src="assets/bkgd-img.png" alt="">
-      <div class="folder-label">BKGD IMAGE</div>
-    </div>
-    <div class="folder-icon" data-file="layout">
-      <img src="assets/layout.png" alt="">
-      <div class="folder-label">LAYOUT</div>
-    </div>
-    <div class="folder-icon" data-file="textEffects">
-      <img src="assets/text-effects.png" alt="">
-      <div class="folder-label">TEXT EFFECTS</div>
-    </div>
-    <div class="folder-icon" data-file="textAnimation">
-      <img src="assets/animations.png" alt="">
-      <div class="folder-label">TEXT ANIMATIONS</div>
-    </div>
-  </aside>
+  <div class="toast" id="toast"></div>
 
-  <!-- EDITOR WINDOW -->
-  <section class="app-window" id="editor-window">
-    <header class="window-titlebar">
-      <h1>Project Editor</h1>
-      <div class="editor-toolbar">
-        <button class="editor-btn run" data-action="run">Run ></button>
-        <button class="editor-btn reset" data-action="reset">Reset ></button>
-        <button class="editor-btn load-example" data-action="load-example">Load Example ></button>
-      </div>
-    </header>
+  <!-- SCREENSAVER -->
+  <div class="screensaver" id="screensaver">
+    <video id="ss-video" src="assets/workingTitle%20Screensaver/workingtitle-screensaver.mp4" loop muted playsinline></video>
+    <div class="ss-hint">[ CLICK TO CONTINUE ]</div>
+  </div>
 
-    <div class="window-body">
-      <div class="editor-toolbar">
-        <span class="editor-hint">Open the <b>START</b> folder to begin. Copy and paste code into the area below to
-          start building your poster. Read the code comments along the way to help you learn about the functions of code
-          you are using. When you're ready, click <b>RUN</b> to see what you made!</span>
-      </div>
+  <script>
+    // Clock
+    function tick() {
+      const n = new Date();
+      document.getElementById('clk').textContent =
+        [n.getHours(), n.getMinutes(), n.getSeconds()].map(x => String(x).padStart(2, '0')).join(':');
+    }
+    tick(); setInterval(tick, 1000);
 
-      <div class="editor-container">
-        <div class="editor-section">
-          <div class="editor-label">HTML</div>
-          <div id="editor-html" class="editor" data-placeholder="Paste or write your HTML code here"></div>
-        </div>
+    // Line numbers — per-editor
+    function updateLineNums(numsId, ta) {
+      const n = Math.max(ta.value.split('\n').length, 10);
+      document.getElementById(numsId).innerHTML = Array.from({ length: n }, (_, i) => i + 1).join('<br>');
+    }
 
-        <div class="editor-section">
-          <div class="editor-label">CSS</div>
-          <div id="editor-css" class="editor" data-placeholder="Paste or write your CSS code here"></div>
-        </div>
+    ['html', 'css', 'js'].forEach(lang => {
+      const ta = document.getElementById(`${lang}-code`);
+      const lnums = document.getElementById(`${lang}-lnums`);
+      ta.addEventListener('input', () => updateLineNums(`${lang}-lnums`, ta));
+      ta.addEventListener('scroll', () => { lnums.scrollTop = ta.scrollTop; });
+    });
 
-        <div class="editor-section">
-          <div class="editor-label">JS</div>
-          <div id="editor-js" class="editor" data-placeholder="Paste or write your JavaScript code here"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT PANEL -->
-  <section id="about-panel" class="panel hidden">
-    <header class="panel-header">
-      <h2>ABOUT THE PROJECT</h2>
-      <button class="panel-close" data-action="close-about">×</button>
-    </header>
-    <div class="panel-body">
-      <h1>WHAT IS IT</h1>
-      <p>
-        <b>workingTitle</b> is a creative coding playground built for exploration. It was made for artists and
-        designers who are curious about how code can behave like paint, collage, or sound; something that can be
-        played with, shaped, and reimagined.
-      </p>
-      <br>
-      <p>
-        Rather than focusing on precision or perfection, <b>workingTitle</b> encourages discovery. It’s a space for
-        sketching with HTML, CSS, and JavaScript — the building blocks of the web — to see what can happen when
-        creative intuition meets computation.
-      </p>
-      <br>
-      <h1>A LITTLE CONTEXT</h1>
-      <p> This project began as my undergrad senior capstone, a challenge to create something that represented
-        everything I had learned in four years of design school. I wanted my final piece to be an homage to where I
-        started: computer science, my original major and eventual minor.
-      </p>
-      <br>
-      <p>
-        When I first shifted from science to art, I expected a complete change in mindset, and I thought I'd experience
-        a 180 in how I approached problem-solving. To my surprise, the two fields share more than they differ. Both
-        demand structure, logic, and creativity equally. <b>workingTitle</b> grew out of a series of small experiments
-        that aimed to bridge those worlds. Each folder on
-        the desktop opens into a piece of that toolkit and are spaces to explore color, texture, type, and motion
-        through code
-        as
-        the medium. It’s a space where artists can create with logic, and coders can play with art.
-      </p>
-      <br>
-      <p> Thanks for stopping by, I'm excited to see whatcha make!</p>
-      <br>
-      <p>
-        Designed and developed by <b>Elli Cunanan</b>.
-        <br>
-        Check out my portfolio and other works here:
-        <a href="https://www.ecunanan.design" target="_blank"
-          style="color:#3366cc; text-decoration:underline;">ecunanan.design →</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- REFERENCES PANEL -->
-  <section id="references-panel" class="panel hidden">
-    <header class="panel-header">
-      <h2>REFERENCES</h2>
-      <button class="panel-close" data-action="close-references">×</button>
-    </header>
-    <div class="panel-body">
-      <p> Below is a list of other helpful resources and artists that helped inspire this site. Feel free to check them
-        out.</p>
-      <br>
-      <h1> HELPFUL RESOURCES</h1>
-      <ul style="margin-left: 20px;">
-        <li>Rob Farmer – <a href="https://robfarmer.xyz" target="_blank"
-            style="color:#3366cc; text-decoration:underline;">robfarmer.xyz →</a></li>
-        <li>Kiel Danger – <a href="https://www.kielm.com" target="_blank"
-            style="color:#3366cc; text-decoration:underline;">kielm.com →</a></li>
-        <li>Space Type Generator – <a href="https://spacetypegenerator.com" target="_blank"
-            style="color:#3366cc; text-decoration:underline;">spacetypegenerator.com →</a></li>
-        <li>p5.js – <a href="https://p5js.org/" target="_blank"
-            style="color:#3366cc; text-decoration:underline;">p5js.org →</a></li>
-        <li>MDN – <a href="https://developer.mozilla.org/" target="_blank"
-            style="color:#3366cc; text-decoration:underline;">developer.mozilla.org →</a></li>
-      </ul>
-      <p style="margin-top: 1em;">
-        If you find other sites that add to the conversation, reach out and let me know. I'd love to check them
-        out too!
-      </p>
-    </div>
-  </section>
-
-  <!-- PREVIEW PANEL -->
-  <section id="preview-panel" class="panel hidden">
-    <header class="panel-header" id="preview-header">
-      <h2>Project Preview</h2>
-      <div class="preview-actions">
-        <button id="btn-save" class="preview-btn save" title="Save to your computer">
-          <img src="assets/save.png" alt="Save">
-          <span>SAVE</span>
-          <span class="format-tag" id="save-format-label" aria-haspopup="true">PNG ▾</span>
-        </button>
-        <div class="save-menu hidden" id="save-menu" role="menu" aria-label="Choose export format">
-          <button type="button" data-format="png">PNG</button>
-          <button type="button" data-format="jpg">JPG</button>
-          <button type="button" data-format="webm">WEBM</button>
-          <button type="button" data-format="mp4">MP4</button>
-        </div>
-        <button id="btn-share" class="preview-btn share" title="Share via email">
-          <img src="assets/send.png" alt="Share">
-          <span>SHARE</span>
-        </button>
-        <button class="panel-close" data-action="close-preview">×</button>
-      </div>
-    </header>
-    <div class="panel-body preview-body">
-      <iframe id="preview-frame" class="preview-frame"></iframe>
-    </div>
-  </section>
-
-  <!-- ======= DESKTOP FOLDER WINDOWS ======= -->
-
-  <!-- START -->
-  <section id="window-start" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>START</h2>
-      <button class="panel-close" data-close="window-start">×</button>
-    </header>
-    <div class="panel-body">
-      <p>Welcome to <b>workingTitle</b>! <br> This toolkit helps you make generative art using the three core coding
-        languages of the internet. Let's start by understanding what each does.
-
-        <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-        <b>HTML</b> defines <i> what</i> will appear on each page.<br>
-        <i>(HTML = elements)</i>
-        <br><br>
-        <b>CSS</b> defines <i>how</i> those elements look.<br>
-        <i>(CSS = style)</i>
-        <br><br>
-        <b>Javascript</b> defines <i>what</i> those elements do.<br>
-        <i>(Javascript = behavior)</i>
-
-        <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-        Let's start building your own project! Choose a folder to explore tools and starter code templates. Add whatever
-        you'd like and when you're ready, hit the "Run" button on the editor to see what you've made.
-      </p>
-    </div>
-  </section>
-
-  <!-- TEXT TOOLS -->
-  <section id="window-textStyles" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>TEXT STYLE</h2>
-      <button class="panel-close" data-close="window-textStyles">×</button>
-    </header>
-
-    <div class="panel-body">
-      <p>Text gives your project a voice; you’ll use <b>HTML</b> to add it and <b>CSS</b> to style it.</p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>HEADERS</h3>
-      <p>
-        Header tags (<code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>) define titles and section headings.
-        The smaller the number, the larger and more important the text. Some examples of what that syntax looks like are
-        below:
-      </p>
-      <pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
+    // Icon drawing — each icon is a 14x12 pixel grid drawn in SVG
+    const icons = [
+      {
+        name: 'START',
+        desc: `<p>Welcome to <b>workingTitle</b>! This toolkit helps you make generative art using the three core coding languages of the internet. Let's start by understanding what each does.</p>
+<hr>
+<p><b>HTML</b> defines <i>what</i> will appear on each page.<br><i>(HTML = elements)</i></p>
+<p><b>CSS</b> defines <i>how</i> those elements look.<br><i>(CSS = style)</i></p>
+<p><b>Javascript</b> defines <i>what</i> those elements do.<br><i>(Javascript = behavior)</i></p>
+<hr>
+<p>Let's start building your own project! Choose a folder to explore tools and starter code templates. Add whatever you'd like and when you're ready, hit <b>RUN [F5]</b> to see what you've made.</p>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 20px;
+      background: #1a1a2e;
+      color: #eee;
+      font-family: sans-serif;
+    }
+    h1 { color: #e94560; }
+  </style>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+  <p>This is my first webpage.</p>
+  <p>Edit the code and hit RUN to see changes!</p>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<rect x="2" y="2" width="10" height="8" fill="none" stroke="${c}" stroke-width="1"/>
+         <polygon points="5,4 9,6 5,8" fill="${c}"/>
+         <rect x="2" y="11" width="10" height="1" fill="${c}" opacity="0.4"/>`)
+        }
+      },
+      {
+        name: 'TEXT STYLES',
+        desc: `<p>Text gives your project a voice; you'll use <b>HTML</b> to add it and <b>CSS</b> to style it.</p>
+<hr>
+<h3>HEADERS</h3>
+<p>Header tags (<code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>) define titles and section headings. The smaller the number, the larger and more important the text.</p>
+<pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
 &lt;h2&gt;Subheading&lt;/h2&gt;
 &lt;h3&gt;Smaller Section Title&lt;/h3&gt;</code></pre>
-      <br>
-      <h3>PARAGRAPHS</h3>
-      <p>
-        Paragraphs are written with the <code>&lt;p&gt;</code> tag.
-        Use this tag for most blocks of body text.
-      </p>
-      <pre><code>&lt;p&gt;This is a simple paragraph of text.&lt;/p&gt;</code></pre>
-      <br>
-      <h3>TEXT STYLES</h3>
-      <p>
-        Emphasize or decorate words using inline tags.
-      </p>
-      <pre><code>&lt;b&gt;Bold text&lt;/b&gt;
+<h3>PARAGRAPHS</h3>
+<p>Paragraphs are written with the <code>&lt;p&gt;</code> tag. Use this for most blocks of body text.</p>
+<pre><code>&lt;p&gt;This is a simple paragraph of text.&lt;/p&gt;</code></pre>
+<h3>TEXT STYLES</h3>
+<p>Emphasize or decorate words using inline tags.</p>
+<pre><code>&lt;b&gt;Bold text&lt;/b&gt;
 &lt;i&gt;Italic text&lt;/i&gt;
 &lt;u&gt;Underlined text&lt;/u&gt;
 &lt;em&gt;Emphasized text&lt;/em&gt;</code></pre>
-
-      <p><b>TIP:</b> Use these tags inside of header or paragraph tags to show importance.
-        <br><br>Example:
-      <pre><code>&lt;p&gt;This is a &lt;b&gt;really&lt;/b&gt; important word.&lt;/p&gt;</code></pre> gives you →
-      This is a <b>really</b> important word.</code>
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>FONT & COLOR (CSS)</h3>
-      <p>
-        Once your text exists in <b>HTML</b>, you can customize its look in <b>CSS</b>. Below is an example of how to
-        define the
-        text style. Read on to learn about each part of the syntax.
-      </p>
-
-      <pre><code>p {
+<p><b>TIP:</b> Use these tags inside header or paragraph tags to show importance. Example: <code>&lt;p&gt;This is a &lt;b&gt;really&lt;/b&gt; important word.&lt;/p&gt;</code> → This is a <b>really</b> important word.</p>
+<hr>
+<h3>FONT & COLOR (CSS)</h3>
+<p>Once your text exists in <b>HTML</b>, customize its look in <b>CSS</b>.</p>
+<pre><code>p {
   font-family: 'Arial';
   font-size: 18px;
   color: #9FD1FF;
   text-align: center;
 }</code></pre>
+<p>The "p" selector styles all <code>&lt;p&gt;</code> paragraph tags. You can do the same for headers (e.g., <code>h1 { ... }</code>).</p>
+<h4>Font Family</h4>
+<p>CSS automatically recognizes "web-safe" fonts: Arial, Courier New, Georgia, Times New Roman, Verdana, and more. To use others, load them from the web:</p>
+<pre><code>@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
 
-      <p>
-        The main parts of this consist of font, size, color, and alignment. In the example above,
-        the "p" indicates you are setting the style for all text written using the
-        <code>&lt;p&gt;</code> paragraph tag. You can do the same for headers (for example,
-        <code>h1 { ... }</code>).
-      </p>
-
-      <br>
-      <h4>Font Family</h4>
-      <p>
-        CSS automatically recognizes a few fonts, known as "web-safe" fonts. They include:
-      </p>
-      <ul style="margin-left: 20px;">
-        <li>Arial (sans-serif)</li>
-        <li>Brush Script MT (cursive)</li>
-        <li>Courier New (monospace)</li>
-        <li>Garamond (serif)</li>
-        <li>Georgia (serif)</li>
-        <li>Tahoma (sans-serif)</li>
-        <li>Times New Roman (serif)</li>
-        <li>Trebuchet MS (sans-serif)</li>
-        <li>Verdana (sans-serif)</li>
-      </ul>
-
-      <br>
-      <p>
-        You may have noticed that many websites use fonts that are not on this list. To do this, the font must be
-        loaded from the web using a URL. This is pretty common, and here's how that looks in practice.
-        <br><br>
-        To start, you need to add the <i>@import</i> tag at the top of your <b>CSS</b> file by pasting it before all of
-        your other <b>CSS</b> styles. This example uses a font from <i>Google Fonts</i>:
-      </p>
-
-      <pre><code>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
-</code></pre>
-      <p>Now that the font is imported, you can apply it anywhere else in your <b>CSS</b> file.</p>
-      <pre><code>
 body {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  color: #9FD1FF;
 }</code></pre>
-
-      <p><b>TIP:</b> Keep copyright in mind when choosing fonts! Fonts from <i>Google Fonts</i> are open source, which
-        means they are free to use. However, some font sites require a license if you're using the font for professional
-        or commercial
-        work. If you're just experimenting or making something for yourself, you're generally in the clear. Licensing
-        matters most when you plan to sell or publicly distribute the final design.</p>
-
-      <br>
-      <h4>Font Size</h4>
-      <p>
-        Font size is measured in pixels. A good general range for body text is around
-        16px–20px, but this is not a strict rule. Do whatever feels right to you!
-      </p>
-
-      <br>
-      <h4>Font Color</h4>
-      <p>
-        You can use either color names (like "red" or "blue") or color codes
-        (HEX or RGBA). If you know the color visually but not the code, you can search for the
-        HEX number online. The internet is your friend for making this step easier!
-      </p>
-
-      <br>
-      <h4>Text Alignment</h4>
-      <p>
-        You can control how text is positioned horizontally using "text-align."
-        Options include <i>left</i>, <i>right</i>, <i>center</i>, and <i>justify</i>.
-      </p>
-    </div>
-  </section>
-
-  <!-- TEXT EFFECTS -->
-  <section id="window-textEffects" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>TEXT EFFECTS</h2>
-      <button class="panel-close" data-close="window-textEffects">×</button>
-    </header>
-
-    <div class="panel-body">
-      <p>
-        Text can do more than just sit on the page. It can glow, bend, or even look 3D.
-        These effects are created with <b>CSS</b>, and they build on what you’ve already learned about styling.
-      </p>
-      <br>
-      <p>
-        <b>JUST A NOTE:</b> The <code>&lt;h1&gt;</code> tag is used in multiple examples below. This tag should only be
-        used if the provided <b>HTML</b> also uses h1. If h1 is <b>NOT</b> the tag being used in your <b>HTML</b>, use
-        the correct corresponding tag instead. Failure to do so will make it so your <b>CSS</b> styling won't apply to
-        your text and
-        make you real sad!
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>GLOWING TEXT</h3>
-      <p>
-        Use "<i>text-shadow</i>" to make glowing or neon-style text. You can layer multiple shadows for brighter
-        effects. Each
-        shadow adds another layer of glow. Try different colors or intensities for variety. See the example below:
-      </p>
-
-      <pre><code>h1 {
-  color: #7FA8FF;
-  text-shadow:
-    0 0 5px #7FA8FF,
-    0 0 10px #7FA8FF,
-    0 0 20px #3C4BE0;
-}</code></pre>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>OUTLINED TEXT</h3>
-      <p>
-        You can outline text using the "<i>-webkit-text-stroke</i>" property (supported in most browsers).
-      </p>
-
-      <pre><code>h1 {
-  color: transparent;
-  -webkit-text-stroke: 2px #7FA8FF;
-}</code></pre>
-
-      <p>
-        <b>TIP:</b> Combine this with the "<i>text-shadow</i>" styling discussed in the Glowing Text section above for
-        bold,
-        poster-like lettering.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>3D TEXT (USING SHADOWS)</h3>
-      <p>
-        You can create a 3D illusion using multiple shadows with different offsets.
-      </p>
-
-      <pre><code>h1 {
-  color: #9FD1FF;
-  text-shadow:
-    1px 1px 0 #000,
-    2px 2px 0 #000,
-    3px 3px 0 #000;
-}</code></pre>
-
-      <p>
-        The more shadows you stack, the deeper the text looks.
-        Adjust the direction (x, y) to control the “light source.” The <i>text-shadow</i> syntax here is left/right
-        offset,
-        up/down offset, blur, and color. To change the direction of the shadow, change the pixel offset numbers from
-        positive to negative. Play with these values to see how the effect changes!</p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>WAVY OR CURVED TEXT</h3>
-      <p>
-        Let's start with a quick <b>HTML</b> structure to set up the elements to display.
-      </p>
-
-      <pre><code>&lt;div class="wave-text"&gt;Hello World&lt;/div&gt;</code></pre>
-
-      <p>
-        The class "<i>wave-text</i>" is important syntax because it allows us to recall this section of text in the
-        <b>CSS</b>
-        properties. We'll utilize the "<i>transform</i>" property to get the text to move the way we want.
-      </p>
-
-      <pre><code>.wave-text {
-  display: inline-block;
-  font-size: 32px;
-  animation: wave 2s infinite linear;
-}
-
-@keyframes wave {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(5deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(-5deg); }
-  100% { transform: rotate(0deg); }
-}</code></pre>
-
-      <p>
-        This example gives your text a gentle wave motion reminiscent of a 90s web banner. Let's breakdown the different
-        properties used here.
-      </p>
-
-      <br>
-      <h4>Display</h4>
-      <p>
-        The display property is used to control the layout of elements. It has multiple different options which include
-        (but aren't limited to) <i>block</i>, <i>inline-block</i>, <i>flex</i>, and <i>grid</i>. The exmaple above uses
-        inline-block, which tells the <b>HTML</b> to display the elements on the same line with block properties (pretty
-        self-explanitory given its name!). For more information about the different property options, I'd recommend
-        heading over to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display"
-          style="color:#7FA8FF;">THIS SITE</a>.
-      </p>
-
-      <br>
-
-      <h4>Animation</h4>
-      <p>
-        The <i>@keyframes</i> property is used to specify sequential steps that the <b>CSS</b> code will execute. In
-        this specific
-        example, the steps are defined using a transform rule, where the text will move and rotate to the specified
-        angles.
-        <br><br>
-        Defined in our <i>@keyframes</i>, we've named all the transformation actions we want "wave." Now let's look back
-        at the
-        <i>.wave-text</i> block and break down the syntax. The first part calls for the "wave" function. Following is
-        the
-        duration (2 seconds), iteration count (continue indefinitely), and timing (constant, no aceleration or
-        deceleration).
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>PERSPECTIVE / ROTATED TEXT</h3>
-      <p>
-        You can use transformations to tilt or rotate text in 3D space.
-      </p>
-
-      <pre><code>h1 {
-  transform: perspective(400px) rotateY(25deg) rotateX(10deg);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-  }</code></pre>
-
-      <p>
-        <b>TIP:</b> Combine this with shadows or gradients for a retro 3D logo look.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h4>BEST PRACTICES</h4>
-      <ul style="margin-left: 20px;">
-        <li>Limit effects. Too many can will make text hard to read.</li>
-        <li>Use glow or shadow on dark backgrounds for contrast.</li>
-        <li>Keep animations subtle and slow.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ANIMATION -->
-  <section id="window-textAnimation" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>ANIMATION</h2>
-      <button class="panel-close" data-close="window-textAnimation">×</button>
-    </header>
-
-    <div class="panel-body">
-      <p>
-        Animation adds life to your designs by combining movement, timing, and flow.
-        There are two main types of animation you might use.
-      </p>
-
-      <ul style="margin-left: 20px;">
-        <li><b>CSS animations</b>: handled by style rules and run automatically.</li>
-        <li><b>JavaScript animations</b>: respond to "events" (like a click or scroll) defined in the code.</li>
-      </ul>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>CSS TRANSITIONS (Simple Movement)</h3>
-      <p>
-        Transitions make changes between changes (known as states) smooth. A common example of this might be a button on
-        a website becoming darker when your cursor hovers over it. Below is a <b>CSS</b> example of a hover transition:
-      </p>
-
-      <pre><code>
-button {
-  background-color: #7FA8FF;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #3C4BE0;
-}</code></pre>
-
-      <p>
-        The <i>transition</i> tells the browser how long to animate the change.
-        In this example, the button fades smoothly to a darker blue when hovered.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>CSS KEYFRAMES (Looping Animation)</h3>
-      <p>
-        <i>Keyframes</i> define continuous or repeating motion. They’re written entirely in <b>CSS</b>, and can loop
-        forever.
-      </p>
-
-      <pre><code>
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-30px); }
-}
-
-.ball {
-  animation: bounce 1s infinite ease-in-out;
-}</code></pre>
-
-      <p>
-        Here, the ball moves up and down forever using only <b>CSS</b>, no JavaScript needed.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>CSS FADE EFFECTS</h3>
-      <p>
-        You can fade elements in or out using <i>opacity</i> inside keyframes:
-      </p>
-
-      <pre><code>
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.text {
-  animation: fadeIn 2s ease forwards;
-}</code></pre>
-
-      <p>
-        <b>NOTE:</b> <i>forwards</i> is what keeps the element visible after the animation ends.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>CSS ROTATION</h3>
-      <p>
-        You can spin an element continuously.
-      </p>
-
-      <pre><code>
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.icon {
-  animation: spin 3s linear infinite;
-}</code></pre>
-
-      <p>
-        <b>NOTE:</b> The term <i>linear</i> in the syntax keeps the spin speed constant, which is great for icons or
-        loading symbols.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3> MULTIPLE CSS ANIMATIONS</h3>
-      <p>
-        Why stop at just one animation?? Try stacking multiple together!
-      </p>
-
-      <pre><code>
-@keyframes float {
-  0% { transform: translateY(0); color: #7FA8FF; }
-  50% { transform: translateY(-10px); color: #9FD1FF; }
-  100% { transform: translateY(0); color: #7FA8FF; }
-}
-
-.title {
-  animation: float 2s ease-in-out infinite;
-}</code></pre>
-
-      <p>
-        This <b>CSS</b> block creates a gentle floating motion, which could be cool for titles or glowing labels.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>Interactive Animation using CSS and Javascript</h3>
-      <p>
-        <b>CSS</b> animations run automatically, but with <b>JavaScript</b>, you can control <i>when</i> they start.
-        In this example, <b>JavaScript</b> toggles a class that triggers a <b>CSS</b> animation.
-
-        <br><br>
-
-        Remember: <b>Javascript</b> defines the behavior while <b>CSS</b> defines the style, or what the element looks
-        like.
-      </p>
-
-      <pre><code>&lt;!-- HTML --&gt;
-&lt;button onclick="document.body.classList.toggle('shake')"&gt;Shake&lt;/button&gt;
-
-/* CSS */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
-
-.shake {
-  animation: shake 0.3s ease;
-}</code></pre>
-
-      <p>
-        The <b>JavaScript</b> part is only this line:
-      </p>
-      <pre><code>document.body.classList.toggle('shake')</code></pre>
-      <p>
-        That one command tells the browser to add or remove the shake class, which runs the <b>CSS</b> animation.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>BEST PRACTICES</h3>
-      <ul style="margin-left: 20px;">
-        <li>Use animations to enhance your page, but be careful not to overwhelm it.</li>
-        <li>Keep motion durations under 2 seconds for natural feel.</li>
-        <li>Start with the <b>CSS</b> and bring in <b>Javacript</b> actions when you need help controlling timing.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- BKGD COLOR -->
-  <section id="window-bkgdColor" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>BKGD COLOR</h2>
-      <button class="panel-close" data-close="window-bkgdColor">×</button>
-    </header>
-    <div class="panel-body">
-      <p>
-        The background color sets the overall tone of your piece. To change it, we’ll target the
-        <i>&lt;body&gt;</i> element, which defines the entire page space. You can describe a color in two main ways:
-      <ul style="margin-left: 20px;">
-        <li>Simple color names your computer already recognizes (like black, skyblue, or tomato)</li>
-        <li>Color codes, which are more precise (like #1A76FF or rgba(112, 230, 213, 1))</li>
-      </ul>
-
-      <br>
-
-      If you're aiming for a specific color, there's no need to guess. You can search for the color code directly
-      online. There are lots of sites that let you browse or even upload an image to match the color you're wanting.
-      </p>
-      <pre><code>body {
-    background-color: PUT COLOR HERE;
-  }</code></pre>
-      <p>
-        Because this changes the appearance of your page, this is <b>CSS</b> code.
-      </p>
-    </div>
-  </section>
-
-  <!-- BKGD IMAGE -->
-  <section id="window-bkgdImage" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>BKGD IMAGE</h2>
-      <button class="panel-close" data-close="window-bkgdImage">×</button>
-    </header>
-    <div class="panel-body">
-      <p>
-        To make the bkgd an image, target the body of the project. Paste a valid URL in the designated area. Since this
-        references appearance, this is <b>CSS</b> code.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <pre><code>body {
-        background-image: url("PASTE IMAGE URL HERE");
-        background-size: cover;
-      }</code></pre>
-
-      <h4>Background Size</h4>
-      <p>
-        This tells the CSS how big to make the image. The example of "cover" used here scales the image to fill the
-        entire background.
-      </p>
-    </div>
-  </section>
-
-  <!-- IMAGES -->
-  <section id="window-images" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>IMAGES</h2>
-      <button class="panel-close" data-close="window-images">×</button>
-    </header>
-
-    <div class="panel-body">
-      <p>
-        Where adding a background image targets <b>CSS</b> because it affects the body of the composition, adding images
-        as visual elements uses <b>HTML</b>. Think of it as the difference between adding wallpaper to a room versus a
-        framed photo. One defines the style of the room, whereas the other is a decoration that sits on top of its
-        background.
-        <br>
-        You’ll use the <code>&lt;img&gt;</code> tag to display these types of images and connect a file saved in your
-        project.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>ADDING AN IMAGE</h3>
-      <p>
-        The <i>src</i> attribute tells the computer where the image file lives, and <i>alt</i> provides a
-        short description for accessibility. It's best practice to provide an <i>alt</i> text description because this
-        is the text that will display on the screen if the image link were to break or be unreadable.
-      </p>
-      <pre><code>&lt;img src="assets/example.png" alt="Example image"&gt;</code></pre>
-
-      <p>
-        <b>Tip:</b> Keep your image files inside an <code>assets</code> folder (or another organized folder)
-        and always use clear filenames (like <code>photo.png</code> or <code>project-banner.jpg</code>) that don't have
-        any spaces or special characters. This helps ensure that your images don't have any trouble linking.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>SIZING IMAGES</h3>
-      <p>
-        While it's <i>possible</i> to change the size of an image directly in <b>HTML</b> using width and height properties as shown below:
-      </p>
-      <pre><code>&lt;img src="assets/example.png" width="200" height="200" alt="Example image"&gt;</code></pre>
-
-      <p>
-        it’s <i>recommended</i> to control image size with <b>CSS</b> instead. It's considered best practice and
-        keeps your <b>HTML</b> clean. Overall it makes styling easier to update later.
-      </p>
-      <pre><code>img {
+<p><b>TIP:</b> Fonts from Google Fonts are open source and free to use. Licensing matters most when you plan to sell or publicly distribute the final design.</p>
+<h4>Font Size</h4>
+<p>Font size is measured in pixels. A good range for body text is around 16px–20px, but do whatever feels right!</p>
+<h4>Font Color</h4>
+<p>Use color names (like "red") or color codes (HEX or RGBA). Search for the HEX number online if you know the color visually.</p>
+<h4>Text Alignment</h4>
+<p>Control horizontal positioning using <code>text-align</code>: <i>left</i>, <i>right</i>, <i>center</i>, or <i>justify</i>.</p>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { background: #0d0d0d; padding: 20px; }
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 48px;
+      color: #ff6b6b;
+      letter-spacing: 0.1em;
+    }
+    .bold   { font-weight: 700; color: #fff; font-size: 18px; }
+    .italic { font-style: italic; color: #ffd93d; font-size: 18px; }
+    .small  { font-size: 12px; color: #888; letter-spacing: 0.2em; }
+  </style>
+</head>
+<body>
+  <h1>Text Styles</h1>
+  <p class="bold">Bold text stands out.</p>
+  <p class="italic">Italic adds emphasis.</p>
+  <p class="small">SMALL AND SPACED OUT</p>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<text x="7" y="9" text-anchor="middle" font-family="Silkscreen,monospace" font-size="9" fill="${c}" font-weight="700">Aa</text>
+         <rect x="2" y="10" width="10" height="1" fill="${c}" opacity="0.5"/>
+         <rect x="2" y="11" width="7" height="1" fill="${c}" opacity="0.3"/>`)
+        }
+      },
+      {
+        name: 'ADD IMAGES',
+        desc: `<p>Where adding a background image targets <b>CSS</b> because it affects the body of the composition, adding images as visual elements uses <b>HTML</b>. Think of it as the difference between adding wallpaper to a room versus a framed photo — one defines the style of the room, the other is a decoration that sits on top.</p>
+<p>You'll use the <code>&lt;img&gt;</code> tag to display images and connect a file saved in your project.</p>
+<hr>
+<h3>ADDING AN IMAGE</h3>
+<p>The <i>src</i> attribute tells the computer where the image file lives, and <i>alt</i> provides a short description for accessibility. Always provide alt text — it displays if the image link breaks.</p>
+<pre><code>&lt;img src="assets/example.png" alt="Example image"&gt;</code></pre>
+<p><b>TIP:</b> Keep your image files inside an <code>assets</code> folder and use clear filenames without spaces or special characters (e.g., <code>photo.png</code>, <code>project-banner.jpg</code>).</p>
+<hr>
+<h3>SIZING IMAGES</h3>
+<p>While you <i>can</i> resize images directly in HTML:</p>
+<pre><code>&lt;img src="assets/example.png" width="200" height="200" alt="Example"&gt;</code></pre>
+<p>It's <i>recommended</i> to control image size with <b>CSS</b> instead — it keeps your HTML clean and is easier to update later.</p>
+<pre><code>img {
   width: 200px;
   height: auto;
 }</code></pre>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>ALIGNMENT & POSITION</h3>
-      <p>Center an image on the page with the display property.</p>
-      <pre><code>img {
+<hr>
+<h3>ALIGNMENT & POSITION</h3>
+<p>Center an image on the page:</p>
+<pre><code>img {
   display: block;
   margin: 0 auto;
 }</code></pre>
-
-      <p>Or float the image beside text:</p>
-      <pre><code>img {
+<p>Or float the image beside text:</p>
+<pre><code>img {
   float: left;
   margin-right: 20px;
 }</code></pre>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <p>
-        When you use <b>CSS</b>, you only need one <i>img</i> block to include all your adjustments (size, border, filters, etc.).
-        This approach makes your <b>CSS</b> more organized and helps you avoid repeating multiple <i>img</i> blocks for
-        every style change.
-      </p>
-
-      <pre><code>img {
+<hr>
+<p>When using <b>CSS</b>, you only need one <i>img</i> block to include all your adjustments. This keeps your code organized and avoids repetition.</p>
+<pre><code>img {
   width: 200px;
   height: auto;
   margin: 0 auto;
   display: block;
-}</code></pre>
-    </div>
-  </section>
-
-  <!-- COLORS -->
-  <section id="window-colors" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>COLORS</h2>
-      <button class="panel-close" data-close="window-colors">×</button>
-    </header>
-
-    <div class="panel-body">
-      <p>
-        Color helps define the tone and feel of your work.
-        In <b>CSS</b>, colors can be written in several ways, the most common are <i>HEX</i>, <i>RGB</i>, and
-        <i>HSL</i>.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>HEX CODES</h3>
-      <p>
-        HEX codes use six numbers or letters to describe color.
-        They always start with a <i>#</i> symbol.
-      </p>
-      <pre><code>body {
+}</code></pre>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background: #111;
+      padding: 20px;
+      text-align: center;
+      font-family: sans-serif;
+    }
+    img {
+      width: 300px;
+      border: 3px solid #4ecdc4;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto 12px;
+    }
+    p { color: #aaa; }
+  </style>
+</head>
+<body>
+  <img src="https://picsum.photos/300/200" alt="A random photo">
+  <p>Replace the src URL with any image link!</p>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<rect x="1" y="2" width="12" height="9" fill="none" stroke="${c}" stroke-width="1"/>
+         <polygon points="1,11 5,6 8,9 10,7 13,11" fill="${c}" opacity="0.6"/>
+         <rect x="10" y="3" width="2" height="2" fill="${c}"/>
+         <line x1="1" y1="11" x2="13" y2="11" stroke="${c}" stroke-width="1"/>`)
+        }
+      },
+      {
+        name: 'COLORS',
+        desc: `<p>Color helps define the tone and feel of your work. In <b>CSS</b>, colors can be written in several ways — the most common are <i>HEX</i>, <i>RGB</i>, and <i>HSL</i>.</p>
+<hr>
+<h3>HEX CODES</h3>
+<p>HEX codes use six numbers or letters to describe a color. They always start with a <i>#</i> symbol.</p>
+<pre><code>body {
   background-color: #050718;
 }</code></pre>
-
-      <p>
-        It's impossible to know the HEX code to every color you might want to use. The internet is going to be your best
-        friend here. There's plenty of websites that offer free color wheels and provide you with a HEX code value once
-        you find a color you want. Some basics to get you started: <i>#000000</i> is black, and
-        <i>#ffffff</i> is white.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>RGB COLORS</h3>
-      <p>
-        RGB stands for <i>red, green, and blue</i>.
-        Each value goes from 0 to 255, the higher the number, the brighter that color.
-      </p>
-      <pre><code>body {
+<p>There are plenty of websites that offer free color wheels and provide HEX codes once you find a color you want. Some basics: <i>#000000</i> is black, <i>#ffffff</i> is white.</p>
+<hr>
+<h3>RGB COLORS</h3>
+<p>RGB stands for <i>red, green, and blue</i>. Each value goes from 0 to 255 — the higher the number, the brighter that color.</p>
+<pre><code>body {
   background-color: rgb(127, 168, 255);
 }</code></pre>
-
-      <p>
-        You can also use <i>rgba()</i> to include transparency.
-      </p>
-      <pre><code>body {
+<p>Use <i>rgba()</i> to include transparency. The last number controls opacity: <i>0</i> is invisible, <i>1</i> is fully visible.</p>
+<pre><code>body {
   background-color: rgba(127, 168, 255, 0.5);
 }</code></pre>
-
-      <p>
-        The A in RGBA represents the Alpha channel. The last number (0.5 here) controls opacity, where
-        <i>0</i> is invisible and <i>1</i> is fully visible.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>HSL COLORS</h3>
-      <p>
-        HSL stands for <i>hue, saturation, and lightness</i>.
-      </p>
-      <pre><code>body {
+<hr>
+<h3>HSL COLORS</h3>
+<p>HSL stands for <i>hue, saturation, and lightness</i>.</p>
+<pre><code>body {
   background-color: hsl(230, 100%, 50%);
 }</code></pre>
-      <p> Let's breakdown this syntax:</p>
-      <ul style="margin-left: 20px;">
-        <li>The first value is the hue (like picking a color on a wheel).</li>
-        <li>The second is saturation (how colorful it is).</li>
-        <li>The third is lightness (how bright or dark it appears).</li>
-      </ul>
-
-      <br>
-
-      <p> While there is no standard practice between using RGB, RBGA, or HSL, HSL is considered one of the easiest ways
-        to adjust color tones.</p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>LINEAR GRADIENTS</h3>
-      <p>
-        You can blend multiple colors using gradients. The syntax for gradients is written as a direction, followed by
-        the start and stop colors.
-      </p>
-      <pre><code>body {
+<ul>
+  <li>The first value is the hue (like picking a color on a wheel).</li>
+  <li>The second is saturation (how colorful it is).</li>
+  <li>The third is lightness (how bright or dark it appears).</li>
+</ul>
+<p>HSL is considered one of the easiest ways to adjust color tones.</p>
+<hr>
+<h3>LINEAR GRADIENTS</h3>
+<p>Blend multiple colors using gradients. The syntax is a direction, followed by the start and stop colors.</p>
+<pre><code>body {
   background: linear-gradient(to right, #7FA8FF, #050718);
 }</code></pre>
-
-      <p>
-        <b>TIP:</b> Try switching <i>to right</i> with <i>to bottom</i> or give it an angle such as <i>45deg</i>
-        for different direction options.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>COLOR VARIABLES</h3>
-      <p>
-        As your projects grow, you might start using the same colors in multiple places.
-        For example, your main background color, text color, and highlight colors might all belong to a certain color
-        palette you've defined for your project.
-      </p>
-
-      <p>
-        <b>PRO TIP:</b> Instead of typing the same HEX code everywhere (who has time to memorize that alphabet soup), you
-        can save it as a variable in <b>CSS</b>.
-        This makes your code easier to update later, you only need to change the color once in the variable and it'll
-        update everywhere else it is used.
-      </p>
-
-      <pre><code>:root {
+<p><b>TIP:</b> Try switching <i>to right</i> with <i>to bottom</i> or use an angle like <i>45deg</i> for different directions.</p>
+<hr>
+<h3>COLOR VARIABLES</h3>
+<p>Instead of typing the same HEX code everywhere, save it as a variable in <b>CSS</b>. Change it once and it updates everywhere it's used.</p>
+<pre><code>:root {
   --main-blue: #7FA8FF;
   --dark-bg: #050718;
 }</code></pre>
-
-      <p>
-        The <i>:root</i> selector is like the “dictionary” of your <b>CSS</b>, any variables you define here can be used
-        anywhere else in your code.
-      </p>
-
-      <br>
-
-      <p>
-        To use a saved color, call it with <i>var(--name)</i> instead of typing the color code again.
-      </p>
-
-      <pre><code>body {
+<p>The <i>:root</i> selector is like the "dictionary" of your CSS. To use a saved color, call it with <i>var(--name)</i>:</p>
+<pre><code>body {
   background-color: var(--dark-bg);
   color: var(--main-blue);
-}</code></pre>
+}
 
-      <p>
-        This tells the browser: “Use whatever value I saved as <i>--dark-bg</i> and <i>--main-blue</i>.”
-      </p>
-
-      <br>
-
-      <p>
-        Here’s why this matters:
-      </p>
-
-      <ul style="margin-left: 20px;">
-        <li>If you ever want to change your main color, you only change it once.</li>
-        <li>It keeps your code clean and consistent.</li>
-        <li>You can create full themes or switch palettes by only needing to update one section.</li>
-      </ul>
-
-      <br>
-
-      <p>
-        You can even use variables inside gradients or filters! Once they're defined, they behave just like regular
-        colors.
-      </p>
-
-      <pre><code>body {
+body {
   background: linear-gradient(to right, var(--main-blue), var(--dark-bg));
 }</code></pre>
-
-      <p>
-        Think of variables as your project’s paint palette. Once you mix your colors at the top, you can reuse them
-        anywhere.
-      </p>
-    </div>
-  </section>
-
-  <!-- FILTERS -->
-  <section id="window-filters" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>FILTERS</h2>
-      <button class="panel-close" data-close="window-filters">×</button>
-    </header>
-
-    <div class="panel-body">
-      <p>
-        Filters let you change how images look without requiring the use of a photo editor.
-        You can adjust brightness, color, blur, and more.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>ADDING FILTERS</h3>
-      <p>
-        Filters are written inside a <b>CSS</b> block. You can use one or stack several together for creative effects.
-      </p>
-
-      <h4>Example Filter Options</h4>
-      <ul style="margin-left: 20px;">
-        <li><code>grayscale(100%)</code> → turns your image black & white</li>
-        <li><code>blur(4px)</code> → softens or defocuses your image</li>
-        <li><code>brightness(120%)</code> → makes the image lighter</li>
-        <li><code>contrast(150%)</code> → deepens darks and lights</li>
-        <li><code>saturate(200%)</code> → makes colors pop</li>
-        <li><code>sepia(100%)</code> → gives a vintage look</li>
-        <li><code>invert(100%)</code> → flips the colors</li>
-      </ul>
-
-      <pre><code>img {
+<p>Think of variables as your project's paint palette — mix your colors once at the top, reuse them anywhere.</p>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { background: #0d0d0d; padding: 20px; font-family: monospace; }
+    .swatch {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      margin: 8px;
+      border-radius: 4px;
+    }
+    p { color: #ccc; margin-top: 12px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="swatch" style="background:#ff6b6b;"></div>
+  <div class="swatch" style="background:#ffd93d;"></div>
+  <div class="swatch" style="background:#6bcb77;"></div>
+  <div class="swatch" style="background:#4d96ff;"></div>
+  <p>Try hex codes, rgb(), or named colors like 'coral'!</p>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<rect x="1" y="2" width="5" height="5" fill="${c}" opacity="0.9"/>
+         <rect x="7" y="2" width="5" height="5" fill="${c}" opacity="0.4"/>
+         <rect x="1" y="8" width="5" height="3" fill="${c}" opacity="0.5"/>
+         <rect x="7" y="8" width="5" height="3" fill="${c}" opacity="0.2"/>
+         <rect x="4" y="5" width="5" height="3" fill="${c}" opacity="0.7"/>`)
+        }
+      },
+      {
+        name: 'IMG FILTERS',
+        desc: `<p>Filters let you change how images look without a photo editor. You can adjust brightness, color, blur, and more — all through <b>CSS</b>.</p>
+<hr>
+<h3>ADDING FILTERS</h3>
+<p>Filters are written inside a <b>CSS</b> block. Use one or stack several together for creative effects.</p>
+<h4>Filter Options</h4>
+<ul>
+  <li><code>grayscale(100%)</code> → turns your image black & white</li>
+  <li><code>blur(4px)</code> → softens or defocuses the image</li>
+  <li><code>brightness(120%)</code> → makes the image lighter</li>
+  <li><code>contrast(150%)</code> → deepens darks and lights</li>
+  <li><code>saturate(200%)</code> → makes colors pop</li>
+  <li><code>sepia(100%)</code> → gives a vintage look</li>
+  <li><code>invert(100%)</code> → flips the colors</li>
+</ul>
+<pre><code>img {
   filter: brightness(120%) contrast(110%) saturate(130%);
 }</code></pre>
-      <p>
-        The example above showcases how multiple filters can be applied to the same image.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>ADDING HOVER EFFECTS</h3>
-      <p>
-        You can make filters react when the user hovers over an image. This is a great way to add interaction or
-        movement to your project.
-      </p>
-
-      <pre><code>img:hover {
+<p>The example above shows how multiple filters can be applied to the same image.</p>
+<hr>
+<h3>HOVER EFFECTS</h3>
+<p>Make filters react when the user hovers over an image. A great way to add interaction to your project.</p>
+<pre><code>img:hover {
   filter: brightness(140%) contrast(120%);
   transition: 0.3s ease;
 }</code></pre>
-
-      <p>
-        The <i>transition</i> line makes the change to the filter settings smooth in for .3 seconds instead of
-        being applied instantly. This is an easy trick to make your effects look more polished.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>OPACITY</h3>
-      <p>
-        Opacity changes how visible an element is. A value of <i>1</i> is fully visible, and <i>0</i> is
-        invisible.
-      </p>
-      <pre><code>img {
+<p>The <i>transition</i> line makes the change smooth over 0.3 seconds instead of snapping instantly — an easy trick to make effects look more polished.</p>
+<hr>
+<h3>OPACITY</h3>
+<p>Opacity changes how visible an element is. A value of <i>1</i> is fully visible, <i>0</i> is invisible.</p>
+<pre><code>img {
   opacity: 0.8;
 }
 
@@ -1089,275 +534,106 @@ img:hover {
   opacity: 1;
   transition: 0.2s ease;
 }</code></pre>
-
-      <p>
-        You can also use <i>opacity</i> with hover to fade things in or out. In this example, the image has some
-        transparency until the cursor hovers over it, at which point the image is fully opaque.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>BEST PRACTICES</h3>
-      <ul style="margin-left: 20px;">
-        <li>Group all your filter effects in the same <i>img</i> block.</li>
-        <li>Use the <i>transition</i> attribute for smoother animations.</li>
-      </ul>
+<p>In this example, the image has some transparency until hovered — at which point it becomes fully opaque.</p>
+<hr>
+<h3>BEST PRACTICES</h3>
+<ul>
+  <li>Group all your filter effects in the same <i>img</i> block.</li>
+  <li>Use the <i>transition</i> attribute for smoother animations.</li>
+</ul>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { background: #111; padding: 20px; font-family: monospace; color: #aaa; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    img { width: 130px; height: 90px; object-fit: cover; }
+    .label { font-size: 10px; margin-top: 4px; color: #555; }
+    .grayscale { filter: grayscale(100%); }
+    .blur      { filter: blur(3px); }
+    .sepia     { filter: sepia(90%); }
+    .glow      { filter: brightness(1.5) saturate(200%); }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div>
+      <img src="https://picsum.photos/130/90?1" alt="original">
+      <div class="label">original</div>
     </div>
-  </section>
-
-  <!-- LAYOUT -->
-  <section id="window-layout" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>LAYOUT</h2>
-      <button class="panel-close" data-close="window-layout">×</button>
-    </header>
-
-    <div class="panel-body">
-      <p>
-        Layout controls where things go on your page. Once you have text, images, and color, layout brings them together
-        into a single composition.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>BLOCKS AND INLINE ELEMENTS</h3>
-      <p>
-        Every <b>HTML</b> element is either <i>block</i> or <i>inline</i>.
-      </p>
-
-      <pre><code>p, h1 { 
-  display: block; 
-  }
-
-img { 
-  display: inline; 
-  }</code></pre>
-
-      <p>
-        <i>Block elements</i> start on a new line and stack vertically, building blocks.
-        <br>
-        <i>Inline elements</i> flow next to each other in the same line, like words in a sentence.
-        <br><br>
-        The example above is saying place all paragraph and h1 styled text on top of each other, but place all images
-        horizontally next to other elements.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>MARGINS & PADDING</h3>
-      <p>
-        Margins control space <u>outside</u> an element.
-        Padding controls space <u>inside</u> an element.
-      </p>
-
-      <pre><code>.box {
-  margin: 20px;
-  padding: 10px;
-}</code></pre>
-
-      <p>
-        Think of margins as the space between boxes, and padding as the packing peanuts inside them.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>POSITIONING</h3>
-      <p>
-        You can tell elements exactly where to sit using the <i>position</i> attribute.
-      </p>
-
-      <pre><code>.box {
-  position: absolute;
-  top: 50px;
-  left: 100px;
-}</code></pre>
-
-      <p>
-        Common position options:
-      </p>
-      <ul style="margin-left: 20px;">
-        <li><b>Absolute</b> → The applied element stays in one place (relative to the page scroll). Other elements will
-          act like its not there.</li>
-        <li><b>Relative</b> → This keeps the element in a normal spot in the page flow, but allows it to be nudged
-          around, if necessary.</li>
-        <li><b>Fixed</b> → Tells the browser "Keep this element in the same spot, do not move it even when the page is
-          scrolled."</li>
-        <li><b>Sticky</b> → The element follows scroll position until it reaches a threshold, like a navigation bar that
-          stays at the top of a
-          viewport window.</li>
-      </ul>
-
-      <br>
-
-      <p>
-        If its not specified, the default positioning is rendered as <i>static</i>.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>ALIGNMENT WITH FLEXBOX</h3>
-      <p>
-        Flexbox is a layout tool that helps you control how items line up inside a box. To use flexbox, you must put
-        your items inside a "container", and then apply the flex rules to the container, not to the items themselves.
-
-      <br>
-      <h4>What is a "container"?</h4>
-
-      A container is just any <b>HTML</b> element that wraps other elements.
-
-      Example <b>HTML</b>:
-      </p>
-
-      <pre><code>&lt;div&gt; class="container">
-  &lt;p&gt;Hello World&lt;/p&gt;
-&lt;/div&gt;</code></pre>
-
-      <p>The &lt;div&gt; is the container, and the &lt;p&gt; is the item inside it. Now let's look at how to connect
-        this back to <b>CSS</b> to obtain some style properties:</p>
-
-      <pre><code>.container {
-  display: flex;
-  justify-content: center; 
-  align-items: center;   
-}</code></pre>
-
-      <ul style="margin-left: 20px;">
-        <li>The "justify-content" attribute moves object horizontally and has options of left, center, and right.</li>
-        <li>"Align-items" can be given top, center, or bottom. It defines object's vertical movement.</li>
-      </ul>
-
-      <br>
-
-      <b>Pro tip:</b> Add <i>height: 100vh;</i> (where "vh" stands for viewport height) to your container to center
-      items vertically on the screen.
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>GRIDS</h3>
-      <p>
-        Grids let you divide your page into structured columns and rows.
-      </p>
-
-      <pre><code>.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-}</code></pre>
-
-      <p>
-        Each <i>1fr</i> is one equal fraction of the space. In the example above, the layout is being asked to be
-        divided into 3 even columns. The gap tells the display how many pixels to leave between each of these columns.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <p><b>TIP:</b> If you are trying to build a responsive layout (meaning it adapts if you resize the viewing/preview
-        window), use percentages or <i>vh/vw</i> instad of hard coding in pixel values. This makes it so your
-        layout will automatically calculate how much to adjust by depending on how much the viewport is resized to. This
-        is idea is how websites are built to work on both desktop browsers and phone screens.</p>
+    <div>
+      <img src="https://picsum.photos/130/90?1" class="grayscale" alt="grayscale">
+      <div class="label">grayscale</div>
     </div>
-  </section>
-
-  <!-- OTHER -->
-  <section id="window-other" class="panel hidden folder-window">
-    <header class="panel-header">
-      <h2>OTHER FUN STUFF</h2>
-      <button class="panel-close" data-close="window-other">×</button>
-    </header>
-
-    <div class="panel-body">
-      <p>
-        This folder is full of miscellaneous <b>CSS</b> effects. If you have any in mind you think should be added, I'd
-        love to chat! Email me <a href="mailto:ellinicolecunanan@gmail.com" style="color:#7FA8FF;">HERE</a>.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>TEXT SHADOWS</h3>
-      <p>
-        Text shadows can make type feel glowy, neon, or retro.
-      </p>
-      <pre><code>h1 {
+    <div>
+      <img src="https://picsum.photos/130/90?1" class="blur" alt="blur">
+      <div class="label">blur</div>
+    </div>
+    <div>
+      <img src="https://picsum.photos/130/90?1" class="sepia" alt="sepia">
+      <div class="label">sepia</div>
+    </div>
+    <div>
+      <img src="https://picsum.photos/130/90?1" class="glow" alt="glow">
+      <div class="label">glow</div>
+    </div>
+  </div>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<rect x="1" y="2" width="12" height="9" fill="none" stroke="${c}" stroke-width="1" opacity="0.4"/>
+         <rect x="1" y="2" width="4" height="9" fill="${c}" opacity="0.7"/>
+         <rect x="5" y="2" width="4" height="9" fill="${c}" opacity="0.3"/>
+         <rect x="9" y="2" width="4" height="9" fill="${c}" opacity="0.07"/>
+         <line x1="5" y1="2" x2="5" y2="11" stroke="${c}" stroke-width="0.5"/>
+         <line x1="9" y1="2" x2="9" y2="11" stroke="${c}" stroke-width="0.5"/>`)
+        }
+      },
+      {
+        name: 'OTHER',
+        desc: `<p>This folder is full of miscellaneous <b>CSS</b> effects. If you have any in mind you think should be added, I'd love to chat! Email me <a href="mailto:ellinicolecunanan@gmail.com">HERE</a>.</p>
+<hr>
+<h3>TEXT SHADOWS</h3>
+<p>Text shadows can make type feel glowy, neon, or retro.</p>
+<pre><code>h1 {
   text-shadow: 2px 2px 0 #000, 4px 4px 0 #7FA8FF;
 }</code></pre>
-      <p>
-        The first set moves the shadow, the second controls its color.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h4>NOTE:</h4>
-      <p>The following examples use <i>.box</i> in the syntax. In order to make these work for the <b>CSS</b>, it needs to be
-        linked to <b>HTML</b>. Here is a snippet of how that might look:</p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>BORDERS</h3>
-      <p>
-        Borders outline elements and help them stand out.
-        You can control the width, style, and color in the syntax.
-      </p>
-
-      <pre><code>.box {
+<p>The first set moves the shadow, the second controls its color.</p>
+<hr>
+<h4>NOTE:</h4>
+<p>The following examples use <i>.box</i> in the syntax. In order to make these work in <b>CSS</b>, the class needs to be linked to <b>HTML</b>. Example: <code>&lt;div class="box"&gt;&lt;/div&gt;</code></p>
+<hr>
+<h3>BORDERS</h3>
+<p>Borders outline elements and help them stand out. Control the width, style, and color.</p>
+<pre><code>.box {
   border: 3px solid #7FA8FF;
 }</code></pre>
-
-      <p>
-        Common border styles:
-      </p>
-      <ul style="margin-left: 20px;">
-        <li>Solid</li>
-        <li>Dashed</li>
-        <li>Dotted</li>
-        <li>Double</li>
-      </ul>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>ROUNDED CORNERS</h3>
-      <p>
-        You can curve the edges of boxes, buttons, or images using border-radius.
-      </p>
-      <pre><code>.box {
+<p>Common border styles: Solid, Dashed, Dotted, Double</p>
+<hr>
+<h3>ROUNDED CORNERS</h3>
+<p>Curve the edges of boxes, buttons, or images using <code>border-radius</code>.</p>
+<pre><code>.box {
   border-radius: 12px;
 }</code></pre>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>BOX SHADOWS</h3>
-      <p>
-        Shadows add dimension and make elements pop off the screen.
-      </p>
-      <pre><code>.box {
+<hr>
+<h3>BOX SHADOWS</h3>
+<p>Shadows add dimension and make elements pop off the screen.</p>
+<pre><code>.box {
   box-shadow: 4px 4px 0 #050718;
 }</code></pre>
-      <p>
-        Here's the syntax breakdown: 4 pixel offset horizontally, 4 pixel offset vertically, 0 pixel blur radius, and
-        the HEX code sets the color to a dark almost-black.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>HOVER EFFECTS</h3>
-      <p>
-        You can make elements react to the user’s mouse with <i>:hover</i>.
-      </p>
-      <pre><code>.box:hover {
+<p>Syntax breakdown: 4px horizontal offset, 4px vertical offset, 0px blur radius, then the shadow color.</p>
+<hr>
+<h3>HOVER EFFECTS</h3>
+<p>Make elements react to the user's mouse with <i>:hover</i>.</p>
+<pre><code>.box:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
 }</code></pre>
-      <p>
-        Try pairing hover effects with shadows or color changes for added feedback.
-      </p>
-
-      <hr style="margin: 12px 0; border: none; border-top: 2px solid #999;">
-
-      <h3>ANIMATION</h3>
-      <p>
-        You can make things move or pulse by defining a <i>@keyframes</i> animation.
-      </p>
-
-      <pre><code>@keyframes float {
+<p>Try pairing hover effects with shadows or color changes for added feedback.</p>
+<hr>
+<h3>FLOATING ANIMATION</h3>
+<p>Make things move or pulse by defining a <i>@keyframes</i> animation.</p>
+<pre><code>@keyframes float {
   0%   { transform: translateY(0px); }
   50%  { transform: translateY(-8px); }
   100% { transform: translateY(0px); }
@@ -1366,41 +642,838 @@ img {
 .box {
   animation: float 2s ease-in-out infinite;
 }</code></pre>
-
-      <p>
-        The example above makes your element move up and down forever like it’s floating.
-      </p>
-    </div>
-  </section>
-
-  <!-- ======= END DESKTOP FOLDER WINDOWS ======= -->
-
-  <!-- TASKBAR -->
-  <nav class="taskbar">
-    <div class="taskbar-left">
-      <button class="taskbar-btn" onclick="window.location.href='index.html'">Home</button>
-      <button class="taskbar-btn" data-action="open-about">About</button>
-      <button class="taskbar-btn" onclick="window.location.href='gallery.html'">Gallery</button>
-    </div>
-
-    <div class="taskbar-right">
-      <button class="taskbar-btn" data-action="open-references">References</button>
-      <div class="tray-clock" id="tray-clock"></div>
-    </div>
-  </nav>
-
-  <!-- SCREENSAVER -->
-  <div id="screensaver" class="screensaver">
-    <video id="screensaver-video" src="assets/workingTitle%20Screensaver/workingtitle-screensaver.mp4" muted playsinline loop preload="none"></video>
+<p>The example above makes your element float up and down forever.</p>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    :root {
+      --accent: #a855f7;
+      --bg: #0f0f23;
+      --text: #e2e8f0;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      font-family: sans-serif;
+    }
+    .card {
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 320px;
+      box-shadow: 0 0 20px rgba(168,85,247,0.3);
+    }
+    h2 { color: var(--accent); margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>CSS Variables!</h2>
+    <p>Change --accent at the top to retheme everything at once.</p>
   </div>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<text x="7" y="9" text-anchor="middle" font-family="Silkscreen,monospace" font-size="11" fill="${c}" font-weight="700">?</text>
+         <rect x="6" y="10" width="3" height="1" fill="${c}" opacity="0.4"/>`)
+        }
+      },
+      {
+        name: 'BKGD COLOR',
+        desc: `<p>The background color sets the overall tone of your piece. To change it, we'll target the <code>&lt;body&gt;</code> element, which defines the entire page space. You can describe a color in two main ways:</p>
+<ul>
+  <li>Simple color names your computer already recognizes (like black, skyblue, or tomato)</li>
+  <li>Color codes, which are more precise (like #1A76FF or rgba(112, 230, 213, 1))</li>
+</ul>
+<p>If you're aiming for a specific color, there's no need to guess. Search for the color code directly online — there are lots of sites that offer free color wheels and provide a HEX code value once you find a color you want.</p>
+<pre><code>body {
+  background-color: PUT COLOR HERE;
+}</code></pre>
+<p>Because this changes the appearance of your page, this is <b>CSS</b> code.</p>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin: 0; padding: 20px; font-family: sans-serif; }
+    .box {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 12px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box" style="background-color:#e74c3c;">
+    Solid Color
+  </div>
+  <div class="box" style="background:linear-gradient(135deg,#667eea,#764ba2);">
+    Gradient
+  </div>
+  <div class="box" style="background:linear-gradient(90deg,#f093fb,#f5576c,#fda085);">
+    Multi-Stop Gradient
+  </div>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<rect x="1" y="1" width="12" height="10" fill="${c}" opacity="0.15" stroke="${c}" stroke-width="1"/>
+         <rect x="3" y="3" width="8" height="6" fill="${c}" opacity="0.4"/>
+         <polygon points="9,8 11,11 13,11 13,9" fill="${c}"/>
+         <line x1="9" y1="8" x2="13" y2="9" stroke="${c}" stroke-width="1"/>`)
+        }
+      },
+      {
+        name: 'BKGD IMAGE',
+        desc: `<p>To make the background an image, target the body of the project. Paste a valid URL in the designated area. Since this references appearance, this is <b>CSS</b> code.</p>
+<hr>
+<pre><code>body {
+  background-image: url("PASTE IMAGE URL HERE");
+  background-size: cover;
+}</code></pre>
+<h4>Background Size</h4>
+<p>This tells <b>CSS</b> how big to make the image. The example of <i>cover</i> used here scales the image to fill the entire background without distortion.</p>
+<p>Other options:</p>
+<ul>
+  <li><code>contain</code> → scales the image to fit within the area without cropping</li>
+  <li><code>auto</code> → keeps the image at its original size</li>
+  <li><code>100% 100%</code> → stretches the image to fill exactly</li>
+</ul>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-image: url('https://picsum.photos/800/600');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: rgba(0,0,0,0.65);
+      color: white;
+      padding: 32px 48px;
+      font-family: sans-serif;
+      font-size: 22px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">Background Image!</div>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<rect x="3" y="4" width="10" height="7" fill="none" stroke="${c}" stroke-width="1" opacity="0.4"/>
+         <rect x="1" y="2" width="10" height="7" fill="none" stroke="${c}" stroke-width="1" opacity="0.7"/>
+         <polygon points="1,9 4,6 6,8 8,5 11,9" fill="${c}" opacity="0.5"/>`)
+        }
+      },
+      {
+        name: 'LAYOUT',
+        desc: `<p>Layout controls where things go on your page. Once you have text, images, and color, layout brings them together into a single composition.</p>
+<hr>
+<h3>BLOCKS AND INLINE ELEMENTS</h3>
+<p>Every <b>HTML</b> element is either <i>block</i> or <i>inline</i>.</p>
+<pre><code>p, h1 { display: block; }
+img    { display: inline; }</code></pre>
+<p><i>Block elements</i> start on a new line and stack vertically like building blocks. <i>Inline elements</i> flow next to each other in the same line, like words in a sentence.</p>
+<hr>
+<h3>MARGINS & PADDING</h3>
+<p>Margins control space <u>outside</u> an element. Padding controls space <u>inside</u> an element.</p>
+<pre><code>.box {
+  margin: 20px;
+  padding: 10px;
+}</code></pre>
+<p>Think of margins as the space between boxes, and padding as the packing peanuts inside them.</p>
+<hr>
+<h3>POSITIONING</h3>
+<p>Tell elements exactly where to sit using the <i>position</i> attribute.</p>
+<pre><code>.box {
+  position: absolute;
+  top: 50px;
+  left: 100px;
+}</code></pre>
+<ul>
+  <li><b>Absolute</b> → The element stays in one place relative to the page. Other elements act like it's not there.</li>
+  <li><b>Relative</b> → Keeps the element in normal page flow, but allows it to be nudged.</li>
+  <li><b>Fixed</b> → Keeps the element in the same spot even when the page is scrolled.</li>
+  <li><b>Sticky</b> → Follows scroll until it reaches a threshold, like a nav bar that stays at the top.</li>
+</ul>
+<p>If not specified, the default is <i>static</i>.</p>
+<hr>
+<h3>ALIGNMENT WITH FLEXBOX</h3>
+<p>Flexbox helps you control how items line up inside a container. Apply flex rules to the container, not the items.</p>
+<pre><code>&lt;div class="container"&gt;
+  &lt;p&gt;Hello World&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<pre><code>.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}</code></pre>
+<ul>
+  <li><code>justify-content</code> → moves items horizontally (left, center, right)</li>
+  <li><code>align-items</code> → moves items vertically (top, center, bottom)</li>
+</ul>
+<p><b>Pro tip:</b> Add <code>height: 100vh;</code> to your container to center items vertically on the full screen.</p>
+<hr>
+<h3>GRIDS</h3>
+<p>Grids divide your page into structured columns and rows.</p>
+<pre><code>.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}</code></pre>
+<p>Each <i>1fr</i> is one equal fraction of the space — the above creates 3 even columns. The gap sets the pixel space between them.</p>
+<hr>
+<p><b>TIP:</b> For responsive layouts (ones that adapt when you resize the window), use percentages or <i>vh/vw</i> instead of hard pixel values. This is how websites work on both desktop and phone screens.</p>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { background: #111; padding: 20px; font-family: monospace; color: #eee; }
+    h3 {
+      color: #555;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+    .flex { display: flex; gap: 10px; }
+    .flex div {
+      background: #1e3a5f;
+      padding: 14px;
+      flex: 1;
+      text-align: center;
+      border-radius: 4px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 10px;
+    }
+    .grid div {
+      background: #3b1f5e;
+      padding: 14px;
+      text-align: center;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h3>FLEXBOX</h3>
+  <div class="flex">
+    <div>A</div><div>B</div><div>C</div>
+  </div>
+  <h3>CSS GRID (1fr 2fr 1fr)</h3>
+  <div class="grid">
+    <div>1</div><div>2 — wider</div><div>3</div>
+  </div>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<rect x="1" y="1" width="5" height="4" fill="${c}" opacity="0.6"/>
+         <rect x="8" y="1" width="5" height="4" fill="${c}" opacity="0.6"/>
+         <rect x="1" y="7" width="12" height="4" fill="${c}" opacity="0.3"/>
+         <line x1="1" y1="6" x2="13" y2="6" stroke="${c}" stroke-width="0.5" opacity="0.4"/>
+         <line x1="7" y1="1" x2="7" y2="5" stroke="${c}" stroke-width="0.5" opacity="0.4"/>`)
+        }
+      },
+      {
+        name: 'TEXT FX',
+        desc: `<p>Text can do more than just sit on the page. It can glow, bend, or even look 3D. These effects are created with <b>CSS</b> and build on what you've already learned about styling.</p>
+<p><b>NOTE:</b> The <code>&lt;h1&gt;</code> tag is used in multiple examples below. Only use it if your <b>HTML</b> also uses <code>h1</code>. If you're using a different tag, replace <code>h1</code> in the <b>CSS</b> with the correct one, otherwise the styling won't apply.</p>
+<hr>
+<h3>GLOWING TEXT</h3>
+<p>Use <i>text-shadow</i> to make glowing or neon-style text. Layer multiple shadows for brighter effects.</p>
+<pre><code>h1 {
+  color: #7FA8FF;
+  text-shadow:
+    0 0 5px #7FA8FF,
+    0 0 10px #7FA8FF,
+    0 0 20px #3C4BE0;
+}</code></pre>
+<hr>
+<h3>OUTLINED TEXT</h3>
+<p>Outline text using the <i>-webkit-text-stroke</i> property (supported in most browsers).</p>
+<pre><code>h1 {
+  color: transparent;
+  -webkit-text-stroke: 2px #7FA8FF;
+}</code></pre>
+<p><b>TIP:</b> Combine this with <i>text-shadow</i> for bold, poster-like lettering.</p>
+<hr>
+<h3>3D TEXT (USING SHADOWS)</h3>
+<p>Create a 3D illusion using multiple shadows with different offsets.</p>
+<pre><code>h1 {
+  color: #9FD1FF;
+  text-shadow:
+    1px 1px 0 #000,
+    2px 2px 0 #000,
+    3px 3px 0 #000;
+}</code></pre>
+<p>The more shadows you stack, the deeper the text looks. The <i>text-shadow</i> syntax is: left/right offset, up/down offset, blur, color. Change offsets from positive to negative to change the shadow direction.</p>
+<hr>
+<h3>WAVY TEXT</h3>
+<p>Set up the HTML element first:</p>
+<pre><code>&lt;div class="wave-text"&gt;Hello World&lt;/div&gt;</code></pre>
+<p>The class "wave-text" lets us target it in <b>CSS</b> using the <i>transform</i> property:</p>
+<pre><code>.wave-text {
+  display: inline-block;
+  font-size: 32px;
+  animation: wave 2s infinite linear;
+}
 
-  <!-- Scripts -->
-  <script src="lib/js/ace-editor/src-min/ace.js"></script>
-  <script src="lib/js/ace-editor/src-min/mode-javascript.js"></script>
-  <script src="lib/js/ace-editor/src-min/ext-language_tools.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="lib/js/editor.js"></script>
-  <script src="lib/js/function.js"></script>
+@keyframes wave {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(5deg); }
+  50%  { transform: rotate(0deg); }
+  75%  { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}</code></pre>
+<p>This gives your text a gentle wave motion. The <i>@keyframes</i> define the steps: duration (2s), iteration (infinite), and timing (linear = constant speed).</p>
+<hr>
+<h3>PERSPECTIVE / ROTATED TEXT</h3>
+<p>Tilt or rotate text in 3D space using transformations.</p>
+<pre><code>h1 {
+  transform: perspective(400px) rotateY(25deg) rotateX(10deg);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}</code></pre>
+<p><b>TIP:</b> Combine this with shadows or gradients for a retro 3D logo look.</p>
+<hr>
+<h3>BEST PRACTICES</h3>
+<ul>
+  <li>Limit effects — too many will make text hard to read.</li>
+  <li>Use glow or shadow on dark backgrounds for contrast.</li>
+  <li>Keep animations subtle and slow.</li>
+</ul>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { background: #050505; padding: 30px; font-family: Georgia, serif; }
+    .neon {
+      font-size: 44px;
+      color: #ff00ff;
+      text-shadow:
+        0 0 5px #ff00ff,
+        0 0 20px #ff00ff,
+        0 0 60px #ff00ff;
+      margin-bottom: 20px;
+    }
+    .outline {
+      font-size: 44px;
+      color: transparent;
+      -webkit-text-stroke: 2px #00ffff;
+      margin-bottom: 20px;
+    }
+    .retro {
+      font-size: 44px;
+      color: #fff;
+      text-shadow: 4px 4px 0 #ff6b6b, 8px 8px 0 #ffd93d;
+    }
+  </style>
+</head>
+<body>
+  <div class="neon">Neon Glow</div>
+  <div class="outline">Outline</div>
+  <div class="retro">Retro Stack</div>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<text x="7" y="6" text-anchor="middle" font-family="Silkscreen,monospace" font-size="7" fill="${c}" opacity="0.3" dx="-2">FX</text>
+         <text x="7" y="6" text-anchor="middle" font-family="Silkscreen,monospace" font-size="7" fill="${c}" opacity="0.3" dx="2" dy="1">FX</text>
+         <text x="7" y="7" text-anchor="middle" font-family="Silkscreen,monospace" font-size="7" fill="${c}">FX</text>
+         <rect x="1" y="9" width="12" height="1" fill="${c}" opacity="0.4"/>
+         <rect x="1" y="11" width="7" height="1" fill="${c}" opacity="0.2"/>`)
+        }
+      },
+      {
+        name: 'ANIMATIONS',
+        desc: `<p>Animation adds life to your designs by combining movement, timing, and flow. There are two main types:</p>
+<ul>
+  <li><b>CSS animations</b> — handled by style rules and run automatically.</li>
+  <li><b>JavaScript animations</b> — respond to events (like a click or scroll) defined in the code.</li>
+</ul>
+<hr>
+<h3>CSS TRANSITIONS (Simple Movement)</h3>
+<p>Transitions make changes between states smooth. A common example is a button becoming darker when hovered.</p>
+<pre><code>button {
+  background-color: #7FA8FF;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3C4BE0;
+}</code></pre>
+<p>The <i>transition</i> tells the browser how long to animate the change. Here, the button fades smoothly to a darker blue when hovered.</p>
+<hr>
+<h3>CSS KEYFRAMES (Looping Animation)</h3>
+<p><i>Keyframes</i> define continuous or repeating motion — written entirely in <b>CSS</b>, can loop forever.</p>
+<pre><code>@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-30px); }
+}
+
+.ball {
+  animation: bounce 1s infinite ease-in-out;
+}</code></pre>
+<p>The ball moves up and down forever using only <b>CSS</b> — no JavaScript needed.</p>
+<hr>
+<h3>FADE EFFECTS</h3>
+<p>Fade elements in or out using <i>opacity</i> inside keyframes:</p>
+<pre><code>@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.text {
+  animation: fadeIn 2s ease forwards;
+}</code></pre>
+<p><b>NOTE:</b> <i>forwards</i> keeps the element visible after the animation ends.</p>
+<hr>
+<h3>ROTATION</h3>
+<p>Spin an element continuously.</p>
+<pre><code>@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.icon {
+  animation: spin 3s linear infinite;
+}</code></pre>
+<p><b>NOTE:</b> <i>linear</i> keeps the spin speed constant — great for icons or loading symbols.</p>
+<hr>
+<h3>MULTIPLE ANIMATIONS</h3>
+<p>Why stop at one? Try stacking multiple animations together!</p>
+<pre><code>@keyframes float {
+  0%   { transform: translateY(0);    color: #7FA8FF; }
+  50%  { transform: translateY(-10px); color: #9FD1FF; }
+  100% { transform: translateY(0);    color: #7FA8FF; }
+}
+
+.title {
+  animation: float 2s ease-in-out infinite;
+}</code></pre>
+<hr>
+<h3>INTERACTIVE ANIMATION (CSS + JavaScript)</h3>
+<p><b>CSS</b> animations run automatically, but with <b>JavaScript</b> you can control <i>when</i> they start. This example toggles a class that triggers a <b>CSS</b> animation.</p>
+<pre><code>&lt;!-- HTML --&gt;
+&lt;button onclick="document.body.classList.toggle('shake')"&gt;Shake&lt;/button&gt;
+
+/* CSS */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-5px); }
+  75%       { transform: translateX(5px); }
+}
+
+.shake { animation: shake 0.3s ease; }</code></pre>
+<p>That one <b>JavaScript</b> command (<code>classList.toggle</code>) adds or removes the shake class, which runs the <b>CSS</b> animation.</p>
+<hr>
+<h3>BEST PRACTICES</h3>
+<ul>
+  <li>Use animations to enhance your page, but be careful not to overwhelm it.</li>
+  <li>Keep motion durations under 2 seconds for a natural feel.</li>
+  <li>Start with <b>CSS</b> and bring in <b>JavaScript</b> when you need to control timing.</li>
+</ul>`,
+        code: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background: #0d0d0d;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .spin {
+      width: 60px; height: 60px;
+      border: 4px solid #333;
+      border-top-color: #ff6b6b;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .pulse {
+      width: 60px; height: 60px;
+      background: #4ecdc4;
+      border-radius: 50%;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+
+    .bounce {
+      width: 40px; height: 40px;
+      background: #ffd93d;
+      border-radius: 4px;
+      animation: bounce 0.7s ease-in-out infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-60px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="spin"></div>
+  <div class="pulse"></div>
+  <div class="bounce"></div>
+</body>
+</html>`,
+        draw(s, c, d) {
+          d(`<circle cx="10" cy="6" r="2" fill="${c}"/>
+         <line x1="2" y1="6" x2="8" y2="6" stroke="${c}" stroke-width="1"/>
+         <line x1="2" y1="4" x2="6" y2="4" stroke="${c}" stroke-width="1" opacity="0.5"/>
+         <line x1="2" y1="8" x2="6" y2="8" stroke="${c}" stroke-width="1" opacity="0.5"/>
+         <line x1="2" y1="2" x2="4" y2="2" stroke="${c}" stroke-width="1" opacity="0.2"/>
+         <line x1="2" y1="10" x2="4" y2="10" stroke="${c}" stroke-width="1" opacity="0.2"/>`)
+        }
+      },
+    ];
+
+    const iconImgMap = {
+      'START':       'assets/start.png',
+      'TEXT STYLES': 'assets/text-style.png',
+      'ADD IMAGES':  'assets/add-imgs.png',
+      'COLORS':      'assets/colors.png',
+      'IMG FILTERS': 'assets/img-filters.png',
+      'OTHER':       'assets/other.png',
+      'BKGD COLOR':  'assets/bkgd-color.png',
+      'BKGD IMAGE':  'assets/bkgd-img.png',
+      'LAYOUT':      'assets/layout.png',
+      'TEXT FX':     'assets/text-effects.png',
+      'ANIMATIONS':  'assets/animations.png',
+    };
+
+    function makeIcon(icon) {
+      const src = iconImgMap[icon.name];
+      if (src) {
+        return `<img class="ficon" src="${src}" alt="${icon.name}">`;
+      }
+      const c = '#00ff41';
+      const dimC = '#004d10';
+      let inner = '';
+      icon.draw(14, c, html => { inner = html; });
+      return `<svg class="ficon" viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;">
+    <rect x="0" y="3" width="14" height="10" fill="#010a01" stroke="${dimC}" stroke-width="0.5"/>
+    <rect x="0" y="3" width="6" height="2" fill="#010a01" stroke="${dimC}" stroke-width="0.5"/>
+    <g transform="translate(0,1)">${inner}</g>
+    <rect x="0" y="3" width="14" height="1" fill="${c}" opacity="0.06"/>
+  </svg>`;
+    }
+
+    const grid = document.getElementById('grid');
+    icons.forEach(ic => {
+      const el = document.createElement('div');
+      el.className = 'folder';
+      el.innerHTML = `${makeIcon(ic)}<div class="fname">${ic.name}</div>`;
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.folder').forEach(x => x.classList.remove('sel'));
+        el.classList.add('sel');
+        openPopup(ic);
+      });
+      grid.appendChild(el);
+    });
+
+    // About popup
+    function openAbout() {
+      document.getElementById('about-popup').classList.add('open');
+    }
+
+    function closeAbout() {
+      document.getElementById('about-popup').classList.remove('open');
+    }
+
+    function closeAboutOverlay(e) {
+      if (e.target === document.getElementById('about-popup')) closeAbout();
+    }
+
+    // Refs popup
+    function openRefs() {
+      document.getElementById('references-popup').classList.add('open');
+    }
+
+    function closeRefs() {
+      document.getElementById('references-popup').classList.remove('open');
+    }
+
+    function closeRefsOverlay(e) {
+      if (e.target === document.getElementById('references-popup')) closeRefs();
+    }
+
+    // Folder popup
+    let currentPopupCode = '';
+
+    function openPopup(ic) {
+      document.getElementById('popup-title').textContent = ic.name;
+      document.getElementById('popup-desc').innerHTML = ic.desc;
+      document.getElementById('popup-code').textContent = ic.code;
+      currentPopupCode = ic.code;
+      document.getElementById('popup').classList.add('open');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('open');
+    }
+
+    function closePopupOverlay(e) {
+      if (e.target === document.getElementById('popup')) closePopup();
+    }
+
+    function loadPopupCode() {
+      const ta = document.getElementById('html-code');
+      ta.value = currentPopupCode;
+      document.getElementById('css-code').value = '';
+      document.getElementById('js-code').value = '';
+      updateLineNums('html-lnums', ta);
+      updateLineNums('css-lnums', document.getElementById('css-code'));
+      updateLineNums('js-lnums', document.getElementById('js-code'));
+      closePopup();
+    }
+
+    // Preview popup
+    function closePreview() {
+      document.getElementById('preview-popup').classList.remove('open');
+    }
+    function closePreviewOverlay(e) {
+      if (e.target === document.getElementById('preview-popup')) closePreview();
+    }
+    // Run — combine all three editors into one document
+    function isFullDoc(str) {
+      const s = str.toLowerCase();
+      return s.includes('<!doctype html') || s.includes('<html');
+    }
+
+    function runCode() {
+      const html = document.getElementById('html-code').value.trim();
+      const css  = document.getElementById('css-code').value.trim();
+      const js   = document.getElementById('js-code').value.trim();
+      if (!html && !css && !js) return;
+
+      const closeScript = '</' + 'script>';
+      let combined;
+
+      const fullDoc = isFullDoc(html) ? html : isFullDoc(css) ? css : isFullDoc(js) ? js : null;
+
+      if (fullDoc) {
+        combined = fullDoc;
+        const extraCss = fullDoc !== css ? css : '';
+        const extraJs  = fullDoc !== js  ? js  : '';
+        if (extraCss) {
+          combined = combined.includes('</head>')
+            ? combined.replace('</head>', `<style>\n${extraCss}\n</style>\n</head>`)
+            : `<style>\n${extraCss}\n</style>\n` + combined;
+        }
+        if (extraJs) {
+          const tag = `<script>\n${extraJs}\n${closeScript}`;
+          combined = combined.includes('</body>')
+            ? combined.replace('</body>', `${tag}\n</body>`)
+            : combined + '\n' + tag;
+        }
+      } else {
+        combined = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+${css ? `<style>\n${css}\n</style>` : ''}
+</head>
+<body style="margin:0">
+${html}
+${js ? `<script>\n${js}\n${closeScript}` : ''}
+</body>
+</html>`;
+      }
+
+      const frame = document.getElementById('pframe');
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      doc.open();
+      doc.write(combined);
+      doc.close();
+
+      document.getElementById('preview-popup').classList.add('open');
+    }
+
+    function resetCode() {
+      ['html', 'css', 'js'].forEach(lang => {
+        const ta = document.getElementById(`${lang}-code`);
+        ta.value = '';
+        updateLineNums(`${lang}-lnums`, ta);
+      });
+      closePreview();
+    }
+
+    function loadExample() {
+      const example = `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #070b07;
+      color: #00ff41;
+      font-family: 'Courier Prime', monospace;
+    }
+    h1 {
+      font-size: 32px;
+      text-shadow: 0 0 10px #00ff41;
+      animation: flicker 2s infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+  <h1>[ workingTitle v2.0 ]</h1>
+  <p>Edit the code in the editor and click RUN to see your creation.</p>
+  <p>Check out the folders above for starter templates and inspiration!</p>
+</body>
+</html>`;
+      const ta = document.getElementById('html-code');
+      ta.value = example;
+      document.getElementById('css-code').value = '';
+      document.getElementById('js-code').value = '';
+      updateLineNums('html-lnums', ta);
+      updateLineNums('css-lnums', document.getElementById('css-code'));
+      updateLineNums('js-lnums', document.getElementById('js-code'));
+    }
+
+    // Toast notification
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // Save PNG — renders iframe content via html2canvas
+    async function savePng() {
+      const frame = document.getElementById('pframe');
+      const frameBody = frame.contentDocument && frame.contentDocument.body;
+      if (!frameBody || !frameBody.innerHTML.trim()) return;
+      try {
+        const canvas = await html2canvas(frameBody, {
+          useCORS: true,
+          allowTaint: true,
+          scale: 2,
+          width: frame.offsetWidth,
+          height: frame.offsetHeight,
+          windowWidth: frame.offsetWidth,
+          windowHeight: frame.offsetHeight,
+        });
+        const link = document.createElement('a');
+        link.download = 'workingTitle-project.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('PNG SAVED');
+      } catch (err) {
+        showToast('SAVE FAILED — TRY AGAIN');
+      }
+    }
+
+    // Share — encodes all three editors into the URL and copies to clipboard
+    async function shareCode() {
+      const data = {
+        html: document.getElementById('html-code').value,
+        css:  document.getElementById('css-code').value,
+        js:   document.getElementById('js-code').value,
+      };
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      const url = `${location.origin}${location.pathname}#code=${encoded}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('LINK COPIED TO CLIPBOARD');
+      } catch {
+        showToast('COPY FAILED — CHECK PERMISSIONS');
+      }
+    }
+
+    // Load shared code from URL hash on page load
+    (function loadFromHash() {
+      const hash = location.hash;
+      if (!hash.startsWith('#code=')) return;
+      try {
+        const data = JSON.parse(decodeURIComponent(escape(atob(hash.slice(6)))));
+        ['html', 'css', 'js'].forEach(lang => {
+          if (data[lang]) {
+            const ta = document.getElementById(`${lang}-code`);
+            ta.value = data[lang];
+            updateLineNums(`${lang}-lnums`, ta);
+          }
+        });
+      } catch (e) {}
+    })();
+
+    // Screensaver — activates after 30s of inactivity
+    (function() {
+      const ss = document.getElementById('screensaver');
+      const vid = document.getElementById('ss-video');
+      let timer;
+
+      function showSS() {
+        vid.currentTime = 0;
+        vid.play();
+        ss.classList.add('active');
+      }
+
+      function hideSS() {
+        ss.classList.remove('active');
+        vid.pause();
+        resetTimer();
+      }
+
+      function resetTimer() {
+        clearTimeout(timer);
+        timer = setTimeout(showSS, 30000);
+      }
+
+      ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'].forEach(evt => {
+        document.addEventListener(evt, () => {
+          if (ss.classList.contains('active')) hideSS();
+          else resetTimer();
+        }, { passive: true });
+      });
+
+      ss.addEventListener('click', hideSS);
+      resetTimer();
+    })();
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F5') {
+        e.preventDefault();
+        runCode();
+      }
+      if (e.key === 'Escape') {
+        closePopup();
+        closeAbout();
+        closeRefs();
+        closePreview();
+      }
+    });
+  </script>
+
 </body>
 
 </html>
